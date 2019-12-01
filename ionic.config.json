@@ -1,5 +1,7 @@
 {
   "name": "theflyingbasket",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

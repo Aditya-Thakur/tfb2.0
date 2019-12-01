@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>main</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar (click)="openSearch()" [color]="success" showCancelButton="focus"></ion-searchbar>
+
+  <ion-grid>
+    <ion-row>
+      <img class="banner" src="../../../assets/menupage/wlecome_banner.jpg">
+    </ion-row>
+    <ion-row>
+      <ion-slides pager="true" [options]="slideOpts">
+        <ion-slide>
+          <img src="http://theflyingbasket.com/assets/menupage/4.jpg" alt="First slide">
+        </ion-slide>
+        <ion-slide>
+          <img src="http://theflyingbasket.com/assets/menupage/1.jpg" alt="Second slide">
+        </ion-slide>
+        <ion-slide>
+          <img src="http://theflyingbasket.com/assets/menupage/2.jpg" alt="Third slide">
+        </ion-slide>
+        <ion-slide>
+          <img src="http://theflyingbasket.com/assets/menupage/3.jpg" alt="Fourth slide">
+        </ion-slide>
+      </ion-slides>
+    </ion-row>
+    <ion-row>
+      <h3 style="color: rgb(110, 104, 13)">Categories made for you:</h3>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <img src="../../../assets/menupage/fruits.jpg" (click)="openShop(13)">
+      </ion-col>
+      <ion-col>
+        <img src="../../../assets/menupage/vegetables.jpg" (click)="openShop(27)">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <img src="../../../assets/menupage/spices.jpg" (click)="openShop(33)">
+      </ion-col>
+      <ion-col>
+        <img src="../../../assets/menupage/groceries.jpg" (click)="openShop2(10)">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+    <ion-col>
+      <img src="../../../assets/menupage/dryfruits.jpg" (click)="openShop(14)">
+    </ion-col>
+    <ion-col>
+      <img src="../../../assets/menupage/snacks.jpg" (click)="openShop(12)">
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <img src="../../../assets/menupage/babycare.jpg" (click)="openShop(15)">
+    </ion-col>
+    <ion-col>
+      <img src="../../../assets/menupage/home&PersonalCare.jpg" (click)="openShop(25)">
+    </ion-col>
+  </ion-row>
+  <ion-row>
+      <img src="../../../assets/menupage/beauty.jpg" (click)="openShop(15)">
+    </ion-row>
+  </ion-grid>
+</ion-content>

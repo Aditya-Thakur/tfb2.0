@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>search</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="searchForm" 
+  (ngSubmit)="search()" >
+    <ion-searchbar showCancelButton="focus" formControlName="keyword" #searchMe></ion-searchbar>
+  </form>
+    <!-- <form [formGroup]="searchForm" 
+      (ngSubmit)="submit()" 
+      novalidate>
+  <div class="ion-form-group">
+    <ion-auto-complete [dataProvider]="searchService" 
+                       formControlName="product"></ion-auto-complete>
+  </div>
+  
+  <button ion-button 
+          type="submit" 
+          block>
+      search
+  </button>
+</form> -->
+
+</ion-content>

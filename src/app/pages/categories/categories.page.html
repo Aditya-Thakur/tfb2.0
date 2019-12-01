@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Categories</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-toolbar>
+    <ion-title size="large">Shop by Category</ion-title>
+  </ion-toolbar>
+<ion-content>
+    <!-- <mat-nav-list>
+        <mat-list-item *ngFor="let category of categoryDict | keyvalue">
+           <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                      {{category.key}}
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <ion-list>
+                    <ion-item *ngFor="let subcategory of categoryDict.get(category.key)">
+                      <ion-label>{{ subcategory }}</ion-label>
+                    </ion-item>
+                  </ion-list>
+              </mat-expansion-panel>
+            </mat-accordion>
+        </mat-list-item>
+      </mat-nav-list> -->
+      
+      <ion-list>
+        <ion-item *ngFor="let category of categoryDict | keyvalue">
+          <ion-label>
+            <mat-accordion style="color: green;">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                      {{category.key}}
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <ion-list>
+                    <ion-item *ngFor="let subcategory of categoryDict.get(category.key)">
+                      <ion-label (click)="getProducts(subcategory.id)">{{ subcategory.subCategory }}</ion-label>
+                    </ion-item>
+                  </ion-list>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      
+</ion-content>
