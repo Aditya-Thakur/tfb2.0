@@ -36,15 +36,20 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'product-details',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('./../product-details/product-details.module').then(m => m.ProductDetailsPageModule)
+          }
+        ]
+      },
+      {
         path: 'products',
         children: [
           {
             path: '',
             loadChildren: () => import('./../products/products.module').then(m => m.ProductsPageModule)
-          },
-          {
-            path: ':id',
-            loadChildren: () => import('./../product-details/product-details.module').then(m => m.ProductDetailsPageModule)
           }
         ]
       },
@@ -54,6 +59,24 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () => import('./../search/search.module').then(m => m.SearchPageModule)
+          }
+        ]
+      },
+      {
+        path: 'register',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../shared/register/register.module').then(m => m.RegisterPageModule)
+          }
+        ]
+      },
+      {
+        path: 'login',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../shared/login/login.module').then(m => m.LoginPageModule)
           }
         ]
       }

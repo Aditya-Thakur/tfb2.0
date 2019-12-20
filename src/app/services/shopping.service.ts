@@ -22,7 +22,7 @@ export class ShoppingService {
     async getAllCategories(): Promise<Category[]> {
       try {
         console.log('hi');
-        const response = await this.http.get(`http://localhost/backend/api/getCategories.php`).toPromise();
+        const response = await this.http.get(`http://theflyingbasket.com/backend/api/getCategories.php`).toPromise();
         return response['categoryData'] as Category[];
       } catch (error) {
         await this.handleError(error);
@@ -33,7 +33,7 @@ export class ShoppingService {
     async getAllSubcategories(categoryid): Promise<Subcategory[]> {
       try {
         const response = await this.http.post(
-          `http://localhost/backend/api/getSubcategoryByCategory.php`,
+          `http://theflyingbasket.com/backend/api/getSubcategoryByCategory.php`,
            categoryid
            )
            .toPromise();
@@ -46,7 +46,7 @@ export class ShoppingService {
      // Get all product details for menu page
   async getProductsByCategoryId(categoryId: number): Promise<Product[]> {
     try {
-      const response = await this.http.post(`http://localhost/backend/api/getAllProductsOfCategory.php`, categoryId).toPromise();
+      const response = await this.http.post(`http://theflyingbasket.com/backend/api/getAllProductsOfCategory.php`, categoryId).toPromise();
       this.products = response['productData'] as Product[];
       return this.products;
     } catch (error) {
@@ -57,7 +57,7 @@ export class ShoppingService {
     async getProductsBySubcategoryId(subcategoryId: number): Promise<Product[]> {
       try {
         const response = await this.http.post(
-          `http://localhost/backend/api/getAllProductsOfSubCategory.php`, subcategoryId).toPromise();
+          `http://theflyingbasket.com/backend/api/getAllProductsOfSubCategory.php`, subcategoryId).toPromise();
         this.products = response['productData'] as Product[];
         return this.products;
       } catch (error) {
@@ -68,13 +68,22 @@ export class ShoppingService {
       // Get product for a search keyword
   async getProductsBySearch(keyword: string): Promise<Product[]> {
     try {
-      const response = await this.http.post(`http://localhost/backend/api/searchBarResponse.php`, keyword).toPromise();
+      const response = await this.http.post(`http://theflyingbasket.com/backend/api/searchBarResponse.php`, keyword).toPromise();
       this.products = response['productData'] as Product[];
       return this.products;
     } catch (error) {
       await this.handleError(error);
     }
   }
+// Get product details.
+async getProductByProductId(productId: number): Promise<Product> {
+  try {
+    const response = await this.http.post(`http://theflyingbasket.com/backend/api/getProductByProductId.php`, productId).toPromise();
+    return response['productData'] as Product;
+  } catch (error) {
+    await this.handleError(error);
+  }
+}
 
   // Get Product Variety details.
   async getProductVarietyByProductId(productId: number): Promise<ProductVariety[]> {

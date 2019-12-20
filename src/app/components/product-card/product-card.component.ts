@@ -5,6 +5,7 @@ import { Product } from 'src/app/models/product';
 import { CartItem } from '../../models/cart-item';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CartService } from 'src/app/services/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-card',
@@ -17,8 +18,36 @@ export class ProductCardComponent implements OnInit {
    @Input('product') product: Product;
   productVarieties: ProductVariety[];
   quantityForm;
+  cartItem: CartItem = {
+    product: {
+      id: 0,
+      category: 0,
+      subcategory: 0,
+      productName: '',
+      productCompany: '',
+      productPrice: 0,
+      productPriceBeforeDiscount: 0,
+      productDescription: '',
+      productImage1: '',
+      productImage2: '',
+      productImage3: '',
+      shippingCharge: 0,
+      productAvailability: '',
+      postingDate: new Date(),
+      updationDate: new Date(),
+      priceVarietyAvailable: false
+    },
+    productVariety: {
+      id: 0,
+    productId: 0,
+    quantityType: '',
+    productQuantity: 0,
+    productPrice: 0
+    },
+    quantity: 0
+  };
 
-  constructor(private shoppingService: ShoppingService, private cart: CartService) {
+  constructor(private shoppingService: ShoppingService, private cart: CartService, private router: Router) {
     this.quantityForm = new FormGroup({
       quantity: new FormControl('', [
         Validators.required
@@ -35,18 +64,21 @@ export class ProductCardComponent implements OnInit {
     console.log(this.productVarieties);
   }
 
-  addToBasket(product: Product) {
-    // tslint:disable-next-line: prefer-const
-    let cartItem: CartItem;
-    cartItem.product = product;
-    cartItem.productVariety = this.quantityForm.quantity;
-    cartItem.quantity = 1;
-    if (cartItem.productVariety == null) {
-      // toast message
-      console.log('Please choose quantity for the item.');
-    } else {
-      this.cart.addToCart(cartItem);
-    }
+  addToBasket() {
+    this.cartItem.product = this.product;
+    this.cartItem.productVariety = this.quantityForm.quantity;
+    this.cartItem.quantity = 1;
+    // if (this.cartItem.productVariety == null) {
+    //   // toast message
+    //   console.log('Please choose quantity for the item.');
+    // } else {
+    this.cart.addToCart(this.cartItem);
+    // }
+  }
+
+  showDetails(productId) {
+    console.log('************ showing details ************');
+    this.router.navigate(['tabs/product-details'], {queryParams : {thisId: productId}});
   }
 
 }

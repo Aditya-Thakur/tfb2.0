@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -13,12 +13,15 @@ import { ProductCardModule } from 'src/app/components/product-card/product-card.
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule,
     ProductDetailsPageRoutingModule,
     ProductCardModule
   ],
   declarations: [ProductDetailsPage],
   exports: [
+    FormsModule,
+    ReactiveFormsModule,
     ProductCardModule
   ]
 })

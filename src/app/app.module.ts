@@ -28,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     IonicStorageModule.forRoot()
   ],
+  exports: [FormsModule, ReactiveFormsModule],
   providers: [
     StatusBar,
     SplashScreen,

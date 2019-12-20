@@ -6,7 +6,7 @@
           <ion-badge color="success">{{product.productPriceBeforeDiscount | discount:product.productPrice}}</ion-badge>
           <img class="productImage"
             src="http://theflyingbasket.com/assets/productimages/{{product.id}}/{{product.productImage1}}"
-            (click)="showDetails()">
+            (click)="showDetails(product.id)">
         </ion-col>
         <ion-col>
           <ion-grid>

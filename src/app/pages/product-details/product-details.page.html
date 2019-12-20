@@ -1,9 +1,50 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>product-details</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
-
+    <ion-grid>
+        <ion-row>
+            <ion-slides pager="true" [options]="slideOpts">
+                <ion-slide>
+                  <img src="http://theflyingbasket.com/assets/productimages/{{product.id}}/{{product.productImage1}}" alt="First slide">
+                </ion-slide>
+                <ion-slide>
+                  <img src="http://theflyingbasket.com/assets/productimages/{{product.id}}/{{product.productImage2}}" alt="Second slide">
+                </ion-slide>
+                <ion-slide>
+                  <img src="http://theflyingbasket.com/assets/productimages/{{product.id}}/{{product.productImage3}}" alt="Third slide">
+                </ion-slide>
+              </ion-slides>
+        </ion-row>
+        <ion-row class="ion-text-center">
+            <span class="productPrice" style="text-decoration: line-through;">Rs.
+              {{product.productPriceBeforeDiscount}}</span>
+          </ion-row>
+          <ion-row *ngIf="productVarieties != null; else priceActual">
+              <form class="form" [formGroup]="quantityForm">
+            <ion-select placeholder="Choose quantity" okText="Okay" cancelText="Dismiss">
+              <ion-select-option *ngFor="let productVariety of productVarieties"
+              value="productVariety.id" formControlName="quantity">
+                {{productVariety.productQuantity}} {{productVariety.quantityType}} - {{productVariety.productPrice}}
+              </ion-select-option>
+            </ion-select>
+          </form>
+          </ion-row>
+          <ng-template #priceActual>
+              <ion-row class="ion-text-center">
+                Rs. {{product.productPrice}}
+              </ion-row>
+            </ng-template>
+            <ion-row>
+              <ion-button (click)="addToBasket(product)">Add to basket <ion-icon name="basket"></ion-icon>
+              </ion-button>
+            </ion-row>
+            <ion-row>
+                <b>Description:</b>
+                <div [innerHTML]="product.productDescription"></div>
+            </ion-row>
+      </ion-grid>
 </ion-content>
