@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { Global } from 'src/app/global';
 
 @Component({
   selector: 'app-tabs',
@@ -10,6 +11,7 @@ import { MenuController } from '@ionic/angular';
 export class TabsPage implements OnInit {
 
   private currentColor: string;
+  globalVariable = Global;
   constructor(private router: Router, private menu: MenuController) {
     this.currentColor = 'success';
   }
@@ -43,6 +45,17 @@ export class TabsPage implements OnInit {
   openHome() {
     this.router.navigateByUrl(`/tabs/main`);
     this.menu.toggle();
+  }
+  openHomeByIcon() {
+    this.router.navigateByUrl(`/tabs/main`);
+  }
+
+  openPage(pageName) {
+    this.router.navigateByUrl(`/tabs/` + pageName);
+    this.menu.toggle();
+  }
+  logout() {
+    this.globalVariable.loggedIn = false;
   }
 
 }

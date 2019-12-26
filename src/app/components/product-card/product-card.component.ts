@@ -6,7 +6,7 @@ import { CartItem } from '../../models/cart-item';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
-
+import { Global } from 'src/app/global';
 @Component({
   selector: 'app-product-card',
   templateUrl: './product-card.component.html',
@@ -16,6 +16,7 @@ export class ProductCardComponent implements OnInit {
 
    // tslint:disable: no-input-rename
    @Input('product') product: Product;
+   globalVariable = Global;
   productVarieties: ProductVariety[];
   quantityForm;
   cartItem: CartItem = {
@@ -46,6 +47,13 @@ export class ProductCardComponent implements OnInit {
     },
     quantity: 0
   };
+  choosedProductVariety: ProductVariety = {
+    id : 0,
+    productId: 0,
+    quantityType: '',
+    productQuantity: 0,
+    productPrice: 0
+  };
 
   constructor(private shoppingService: ShoppingService, private cart: CartService, private router: Router) {
     this.quantityForm = new FormGroup({
@@ -65,8 +73,11 @@ export class ProductCardComponent implements OnInit {
   }
 
   addToBasket() {
+    if (this.productVarieties != null) {
+      this.choosedProductVariety = this.quantityForm.value.quantity;
+    }
     this.cartItem.product = this.product;
-    this.cartItem.productVariety = this.quantityForm.quantity;
+    this.cartItem.productVariety = this.choosedProductVariety;
     this.cartItem.quantity = 1;
     // if (this.cartItem.productVariety == null) {
     //   // toast message

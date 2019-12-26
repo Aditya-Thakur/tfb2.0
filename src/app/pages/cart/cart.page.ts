@@ -20,7 +20,7 @@ export class CartPage implements OnInit {
   constructor(private cart: CartService) { }
 
   ngOnInit() {
-    this.myCart = this.cart.getMyCart();
+    // this.myCart = this.cart.getMyCart();
   }
 
 }

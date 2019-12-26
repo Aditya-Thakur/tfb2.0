@@ -17,14 +17,14 @@
                 {{product.productPriceBeforeDiscount}}</span>
             </ion-row>
             <ion-row *ngIf="productVarieties != null; else priceActual">
-                <form class="form" [formGroup]="quantityForm">
-              <ion-select placeholder="Choose quantity" okText="Okay" cancelText="Dismiss">
-                <ion-select-option *ngFor="let productVariety of productVarieties"
-                value="productVariety.id" formControlName="quantity">
-                  {{productVariety.productQuantity}} {{productVariety.quantityType}} - {{productVariety.productPrice}}
-                </ion-select-option>
-              </ion-select>
-            </form>
+              <form class="form" [formGroup]="quantityForm">
+                <ion-select placeholder="Choose quantity" okText="Okay" cancelText="Dismiss">
+                  <ion-select-option *ngFor="let productVariety of productVarieties" value="productVariety"
+                    formControlName="quantity">
+                    {{productVariety.productQuantity}} {{productVariety.quantityType}} - {{productVariety.productPrice}}
+                  </ion-select-option>
+                </ion-select>
+              </form>
             </ion-row>
             <!-- <ion-row>
               <mat-form-field *ngIf="productVarieties != null; else priceActual">

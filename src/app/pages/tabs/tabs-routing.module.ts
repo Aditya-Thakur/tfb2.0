@@ -79,6 +79,69 @@ const routes: Routes = [
             loadChildren: () => import('../shared/login/login.module').then(m => m.LoginPageModule)
           }
         ]
+      },
+      {
+        path: 'aboutUs',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../sidePanel/about-us/about-us.module').then(m => m.AboutUsPageModule)
+          }
+        ]
+      },
+      {
+        path: 'contactUs',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../sidePanel/contact-us/contact-us.module').then(m => m.ContactUsPageModule)
+          }
+        ]
+      },
+      {
+        path: 'cancel',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../sidePanel/cancel/cancel.module').then(m => m.CancelPageModule)
+          }
+        ]
+      },
+      {
+        path: 'deliveryPolicy',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../sidePanel/delivery-policy/delivery-policy.module').then(m => m.DeliveryPolicyPageModule)
+          }
+        ]
+      },
+      {
+        path: 'privacyPolicy',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../sidePanel/privacy-policy/privacy-policy.module').then(m => m.PrivacyPolicyPageModule)
+          }
+        ]
+      },
+      {
+        path: 'myProfile',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../sidePanel/my-profile/my-profile.module').then(m => m.MyProfilePageModule)
+          }
+        ]
+      },
+      {
+        path: 'myOrders',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../sidePanel/my-orders/my-orders.module').then(m => m.MyOrdersPageModule)
+          }
+        ]
       }
     ]
   },
