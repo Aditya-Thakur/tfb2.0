@@ -86,6 +86,15 @@ export class ProductCardComponent implements OnInit {
     this.cart.addToCart(this.cartItem);
     // }
   }
+  changeQuantity(change) {
+    if (this.productVarieties != null) {
+      this.choosedProductVariety = this.quantityForm.value.quantity;
+    }
+    this.cartItem.product = this.product;
+    this.cartItem.productVariety = this.choosedProductVariety;
+    this.cartItem.quantity = this.globalVariable.myCart.getQuantity(this.product);
+    this.cart.changeQuantity(this.cartItem, change);
+  }
 
   showDetails(productId) {
     console.log('************ showing details ************');

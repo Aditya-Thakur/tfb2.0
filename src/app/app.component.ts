@@ -37,10 +37,17 @@ export class AppComponent {
       this.splashScreen.hide();
     });
     await this.getFromLocal('loggedInUser');
-    // tslint:disable-next-line: no-string-literal
+    await this.getFromLocal('myCart');
+    // tslint:disable: no-string-literal
     this.globalVariable.loggedInUser = this.data['loggedInUser'];
     if (this.globalVariable.loggedInUser != null) {
       this.globalVariable.loggedIn = true;
+    }
+    console.log(this.data);
+    if (this.data.length() !== 0) {
+      if (this.data['myCart'] != null) {
+        this.globalVariable.myCart = this.data['myCart'];
+      }
     }
   }
 }

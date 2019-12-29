@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { Cart } from 'src/app/models/cart';
+import { Global } from 'src/app/global';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -9,6 +11,7 @@ import { Cart } from 'src/app/models/cart';
 })
 export class CartPage implements OnInit {
 
+  globalVariable = Global;
   myCart: Cart = {
     myCartItems: null,
     getTotalCartPrice: () => 0,
@@ -20,7 +23,7 @@ export class CartPage implements OnInit {
   constructor(private cart: CartService) { }
 
   ngOnInit() {
-    // this.myCart = this.cart.getMyCart();
+    this.myCart = this.globalVariable.myCart;
   }
 
 }

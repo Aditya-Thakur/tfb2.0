@@ -5,7 +5,15 @@
 </ion-header>
 
 <ion-content>
-    <br>
+  <ion-header>
+      <ion-button expand="full" color="secondary">Cart Items</ion-button>
+  </ion-header>
+  <ion-grid>
+    <ion-row *ngFor="let cartItem of globalVariable.myCart.myCartItems">
+        <app-product-card [product]="cartItem.product">
+          </app-product-card>
+    </ion-row>
+  </ion-grid>
     <!-- <div *ngIf="myCart.getTotalItemCount() != 0; else noItemFound" class="container">
       <div class="row">
         <h3>Step 1 of 3</h3>
@@ -71,3 +79,13 @@
       </div>
     </ng-template> -->
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-col size=12>
+        <ion-row>Total : Rs: {{globalVariable.myCart.getTotalCartPrice()}}</ion-row>
+      </ion-col>
+    </ion-grid>
+    <ion-title>Checkout</ion-title>
+  </ion-toolbar>
+</ion-footer>

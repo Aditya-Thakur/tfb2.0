@@ -26,7 +26,8 @@ import { ProductCardModule } from 'src/app/components/product-card/product-card.
   exports: [
     FormsModule,
     ReactiveFormsModule,
-    ProductCardModule
+    ProductCardModule,
+    ProductCardComponent
   ]
 })
 export class ProductsPageModule {}

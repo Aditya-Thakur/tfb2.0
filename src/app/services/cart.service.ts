@@ -11,91 +11,12 @@ export class CartService {
 
   public data: any = [];
   globalVariable = Global;
-  // public myCart: Cart = {
-  //   myCartItems: [{
-  //     product: {
-  //       id: 0,
-  //       category: 0,
-  //       subcategory: 0,
-  //       productName: '',
-  //       productCompany: '',
-  //       productPrice: 0,
-  //       productPriceBeforeDiscount: 0,
-  //       productDescription: '',
-  //       productImage1: '',
-  //       productImage2: '',
-  //       productImage3: '',
-  //       shippingCharge: 0,
-  //       productAvailability: '',
-  //       postingDate: new Date(),
-  //       updationDate: new Date(),
-  //       priceVarietyAvailable: false
-  //     },
-  //     productVariety: {
-  //       id: 0,
-  //     productId: 0,
-  //     quantityType: '',
-  //     productQuantity: 0,
-  //     productPrice: 0
-  //     },
-  //     quantity: 0
-  //   }],
-  //   getTotalCartPrice: () => 0,
-  //   getTotalItemCount: () => 0,
-  //   getQuantity: () => 0,
-  //   totalCartPrice: 0,
-  //   getTotalDiscountPrice: () => 0
-  // };
 
   public myCartItems: CartItem[] = [];
 
-  constructor(private storage: Storage) {
-    // this.getMyCart();
-  }
+  constructor(private storage: Storage) { }
 
-  // getMyCart(): Cart {
-  //   this.getFromLocal('myCart');
-  //   this.myCart  = this.data['myCart'];
-  //   console.log('*******');
-  //   if (this.myCart == null) {
-  //     console.log('#####');
-  //     this.myCart = {
-  //       myCartItems: [{
-  //         product: {
-  //           id: 0,
-  //           category: 0,
-  //           subcategory: 0,
-  //           productName: '',
-  //           productCompany: '',
-  //           productPrice: 0,
-  //           productPriceBeforeDiscount: 0,
-  //           productDescription: '',
-  //           productImage1: '',
-  //           productImage2: '',
-  //           productImage3: '',
-  //           shippingCharge: 0,
-  //           productAvailability: '',
-  //           postingDate: new Date(),
-  //           updationDate: new Date(),
-  //           priceVarietyAvailable: false
-  //         },
-  //         productVariety: {
-  //           id: 0,
-  //         productId: 0,
-  //         quantityType: '',
-  //         productQuantity: 0,
-  //         productPrice: 0
-  //         },
-  //         quantity: 0
-  //       }],
-  //       getTotalCartPrice: () => 0,
-  //       getTotalItemCount: () => 0,
-  //       getQuantity: () => 0,
-  //       totalCartPrice: 0,
-  //       getTotalDiscountPrice: () => 0};
-  //   }
-  //   return this.myCart;
-  // }
+
 
   async getFromLocal(key) {
     this.data[key] = this.storage.get(key);
@@ -105,18 +26,22 @@ export class CartService {
   }
 
   async addToCart(cartItem: CartItem) {
-    // this.getMyCart();
     try {
-      console.log(cartItem);
-      this.globalVariable.myCart.myCartItems.push(cartItem);
-    //   const index = this.myCart.myCartItems.findIndex(e => e.product.id === cartItem.product.id);
-    //   if (index === -1) {
-    //     this.myCart.myCartItems.push(cartItem);
-    //   } else {
-    //     this.myCart.myCartItems[index].quantity += 1;
-    // }
+      this.myCartItems.push(cartItem);
+      this.globalVariable.myCart = new Cart(this.myCartItems);
       this.saveInLocal('myCart', this.globalVariable.myCart);
-      console.log(this.globalVariable.myCart);
+      this.getFromLocal('myCart');
+      console.log(this.data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async changeQuantity(cartItem: CartItem, change: number) {
+    try {
+      const index = this.globalVariable.myCart.myCartItems.findIndex(e => e.product.id === cartItem.product.id);
+      this.globalVariable.myCart.myCartItems[index].quantity += change;
+      this.saveInLocal('myCart', this.globalVariable.myCart);
     } catch (e) {
       console.log(e);
     }

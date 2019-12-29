@@ -1,5 +1,6 @@
 import { Product } from './models/product';
 import { Cart } from './models/cart';
+import { CartItem} from './models/cart-item';
 
 export const Global = {
     loggedIn: false,
@@ -45,38 +46,39 @@ export const Global = {
     priceVarietyAvailable: false
     }],
     myCart: new Cart({
-        myCartItems: [{
-            product: {
-                id: 0,
-                category: 0,
-                subcategory: 0,
-                productName: '',
-                productCompany: '',
-                productPrice: 0,
-                productPriceBeforeDiscount: 0,
-                productDescription: '',
-                productImage1: '',
-                productImage2: '',
-                productImage3: '',
-                shippingCharge: 0,
-                productAvailability: '',
-                postingDate: new Date(),
-                updationDate: new Date(),
-                priceVarietyAvailable: false
-              },
-              productVariety: {
-                id: 0,
-              productId: 0,
-              quantityType: '',
-              productQuantity: 0,
-              productPrice: 0
-              },
-              quantity: 0
-          }],
+        myCartItems: new Array<CartItem>(),
+        // [{
+        //     product: {
+        //         id: '',
+        //         category: '',
+        //         subcategory: '',
+        //         productName: '',
+        //         productCompany: '',
+        //         productPrice: '',
+        //         productPriceBeforeDiscount: '',
+        //         productDescription: '',
+        //         productImage1: '',
+        //         productImage2: '',
+        //         productImage3: '',
+        //         shippingCharge: '',
+        //         productAvailability: '',
+        //         postingDate: new Date(),
+        //         updationDate: new Date()
+        //       },
+        //       productVariety: {
+        //         id: '',
+        //       productId: '',
+        //       quantityType: '',
+        //       productQuantity: '',
+        //       productPrice: ''
+        //       },
+        //       quantity: 0
+        //   }],
           getTotalCartPrice: () => 0,
           getQuantity: (product: Product) => 0,
           getTotalItemCount: () => 0,
           getTotalDiscountPrice: () => 0
     }),
+    cart : {},
      backendUrl: 'http://theflyingbasket.com/backend'
 };
