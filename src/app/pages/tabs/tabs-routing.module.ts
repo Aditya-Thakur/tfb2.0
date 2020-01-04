@@ -142,6 +142,15 @@ const routes: Routes = [
             loadChildren: () => import('../sidePanel/my-orders/my-orders.module').then(m => m.MyOrdersPageModule)
           }
         ]
+      },
+      {
+        path: 'checkout',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../order/checkout/checkout.module').then(m => m.CheckoutPageModule)
+          }
+        ]
       }
     ]
   },

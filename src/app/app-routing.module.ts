@@ -41,6 +41,10 @@ const routes: Routes = [
   {
     path: 'my-orders',
     loadChildren: () => import('./pages/sidePanel/my-orders/my-orders.module').then( m => m.MyOrdersPageModule)
+  },
+  {
+    path: 'checkout',
+    loadChildren: () => import('./pages/order/checkout/checkout.module').then( m => m.CheckoutPageModule)
   }
 ];
 

@@ -46,7 +46,8 @@ export class ShoppingService {
      // Get all product details for menu page
   async getProductsByCategoryId(categoryId: number): Promise<Product[]> {
     try {
-      const response = await this.http.post(`http://theflyingbasket.com/backend/api/getAllProductsOfCategory.php`, categoryId).toPromise();
+      const response = await
+      this.http.post(`http://theflyingbasket.com/backend/api/getAllProductsOfCategory.php`, categoryId).toPromise();
       this.products = response['productData'] as Product[];
       return this.products;
     } catch (error) {

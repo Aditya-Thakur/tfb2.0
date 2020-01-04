@@ -12,7 +12,7 @@
           <ion-grid>
             <ion-row>
             </ion-row>
-            <ion-row class="ion-text-center">
+            <ion-row *ngIf="productVarieties.length == 0  && product.productPriceBeforeDiscount!=product.productPrice" class="ion-text-center">
               <span class="productPrice" style="text-decoration: line-through;">Rs.
                 {{product.productPriceBeforeDiscount}}/-</span>
             </ion-row>
@@ -26,9 +26,10 @@
                 </ion-select>
               </form>
             </ion-row> -->
-            <ion-row *ngIf="productVarieties != null; else priceActual">
+            <ion-row *ngIf="productVarieties.length != 0; else priceActual">
+              <mat-label style="padding-top: 2px;">Choose Quantity</mat-label>
               <mat-form-field>
-                <mat-label>Choose Quantity</mat-label>
+                <!-- <mat-label>Choose Quantity</mat-label> -->
                 <select matNativeControl required>
                   <option *ngFor="let productVariety of productVarieties" value="productVariety.id">
                     {{productVariety.productQuantity}} {{productVariety.quantityType}} - Rs. {{productVariety.productPrice}}/-

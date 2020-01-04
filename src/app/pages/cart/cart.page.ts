@@ -3,6 +3,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { Cart } from 'src/app/models/cart';
 import { Global } from 'src/app/global';
 import { from } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -20,10 +21,13 @@ export class CartPage implements OnInit {
     totalCartPrice: 0,
     getTotalDiscountPrice: () => 0
   };
-  constructor(private cart: CartService) { }
+  constructor(private cart: CartService, private router: Router) { }
 
   ngOnInit() {
     this.myCart = this.globalVariable.myCart;
+  }
+  checkout() {
+    this.router.navigateByUrl(`/tabs/checkout`);
   }
 
 }
