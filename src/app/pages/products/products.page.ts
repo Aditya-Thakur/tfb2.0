@@ -15,7 +15,7 @@ export class ProductsPage implements OnInit {
   subid: number;
   pSearch: string;
   products: Product[];
-  error;
+  error; imgsrc; altText = '';
   constructor(private route: ActivatedRoute, private shoppingService: ShoppingService) { }
 
   async ngOnInit() {
@@ -37,8 +37,12 @@ export class ProductsPage implements OnInit {
       if (this.products.length === 0) {
         this.error = true;
       }
-      console.log(this.products);
+      console.log(this.products[0]);
+      this.imgsrc = '../assets/subpic/' + this.products[0].subCategory + '.png';
+      this.altText = 'This is what we found in ' +
+      (await this.shoppingService.getSubcategoryByID(this.products[0].subCategory)).subcategory;
     });
   }
+
 
 }

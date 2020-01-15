@@ -6,10 +6,16 @@
 
 <ion-content>
     <ion-grid>
+      <ion-row>
+        <ion-img width="80" height="80"
+            src="{{imgsrc}}" alt="{{altText}}"></ion-img>
+      </ion-row>
         <ion-row *ngFor="let product of products">
             <app-product-card [product]="product">
               </app-product-card>
         </ion-row>
       </ion-grid>
+
+      <p class="ion-padding-start ion-padding-end"><ion-item (click)="scrollToTop()" expand="block" fill="outline">That's all for now!</ion-item></p>
 
 </ion-content>

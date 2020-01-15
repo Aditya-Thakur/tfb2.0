@@ -5,68 +5,122 @@
 </ion-header>
 
 <ion-content>
-<div *ngIf="globalVariable.myCart.getTotalItemCount() != 0; else noItemFound" class="container">
-      <div class="row">
-        <h3>Step 1 of 3</h3>
+  <ion-title>Check your delivery location: </ion-title>
+  <form (ngSubmit)="logForm()">
+    <ion-list>
+
+      <ion-item>
+        <ion-label floating>Name: </ion-label>
+        <ion-input type="text" value="" name="name" [(ngModel)]="globalVariable.loggedInUser.name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Shipping Address: </ion-label>
+        <ion-input name="shippingAddress" type="text"
+          [(ngModel)]="globalVariable.loggedInUser.shippingAddress"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Landmark: </ion-label>
+        <ion-input type="text" name="landMark" [(ngModel)]="globalVariable.loggedInUser.landMark">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>City: </ion-label>
+        <ion-input type="text" name="shippingCity" [(ngModel)]="globalVariable.loggedInUser.shippingCity">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>State: </ion-label>
+        <ion-input type="text" name="shippingState" [(ngModel)]="globalVariable.loggedInUser.shippingState">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Pincode: </ion-label>
+        <ion-input type="number" name="shippingPincode"
+          [(ngModel)]="globalVariable.loggedInUser.shippingPincode"></ion-input>
+      </ion-item>
+      <ion-item-divider slot="end">
+        <ion-button shape="round" type="submit" (click)="logForm()" color="success">Place
+          Order</ion-button>
+      </ion-item-divider>
+    </ion-list>
+  </form>
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+<!-- <div *ngIf="globalVariable.myCart.getTotalItemCount() != 0; else noItemFound" class="container">
+  <div class="row">
+    <h3>Step 1 of 3</h3>
+  </div>
+  <div class="row">
+    <h4>You have following items in your cart: </h4>
+  </div>
+  <div class="row cart-table">
+    <table *ngIf="globalVariable.myCart!=null" class="table table-striped table-dark">
+      <thead>
+        <tr>
+          <th scope="col">
+            <i class="fa fa-shopping-cart cart-icon"></i><span *ngIf="myCart!=null"
+              class="badge">{{globalVariable.myCart.getTotalItemCount()}}</span>
+          </th>
+          <th scope="col">Product Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cartItem of globalVariable.myCart.myCartItems">
+          <td>
+            <img class="cart-image"
+              src="http://theflyingbasket.com/assets/productimages/{{cartItem.product.productId}}/{{cartItem.product.productImage1}}"
+              alt="{{cartItem.product.productName}}" (click)="showDetails(cartItem.product.productId)" />
+          </td>
+          <td>{{cartItem.product.productName}}</td>
+
+          <td>Rs. {{cartItem.product.productPrice}}</td>
+          <td>
+            {{cartItem.quantity}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row text-center justify-content-center">
+    <div class="col-md-6" style="float: right; padding-top: 10px;">
+      <h5 class="cart-value">Total Cart Value : Rs. {{globalVariable.myCart.getTotalCartPrice()}}</h5>
+    </div>
+    <div class="col-md-2" style="padding-top: 10px;">
+        <button class="btn btn-small btn-dark" (click)="clearCart()">Clear Cart</button>
+    </div>
+    <div class="col-md-4" style="padding-top: 10px;">
+      <button (click)="triggerShippingForm()" class="btn btn-info">See delivery options</button>
+    </div>
+  </div>
+</div>
+<ng-template #noItemFound>
+  <div class="container card-body">
+    <div class="row">
+      <h5>There are no item in your cart right now: </h5>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <h4>Let's buy something now -></h4>
       </div>
-      <div class="row">
-        <h4>You have following items in your cart: </h4>
-      </div>
-      <div class="row cart-table">
-        <table *ngIf="globalVariable.myCart!=null" class="table table-striped table-dark">
-          <thead>
-            <tr>
-              <th scope="col">
-                <i class="fa fa-shopping-cart cart-icon"></i><span *ngIf="myCart!=null"
-                  class="badge">{{globalVariable.myCart.getTotalItemCount()}}</span>
-              </th>
-              <th scope="col">Product Name</th>
-              <th scope="col">Price</th>
-              <th scope="col">Quantity</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let cartItem of globalVariable.myCart.myCartItems">
-              <td>
-                <img class="cart-image"
-                  src="http://theflyingbasket.com/assets/productimages/{{cartItem.product.productId}}/{{cartItem.product.productImage1}}"
-                  alt="{{cartItem.product.productName}}" (click)="showDetails(cartItem.product.productId)" />
-              </td>
-              <td>{{cartItem.product.productName}}</td>
-    
-              <td>Rs. {{cartItem.product.productPrice}}</td>
-              <td>
-                {{cartItem.quantity}}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="col-md-6" style="float: right; padding-top: 10px;">
-          <h5 class="cart-value">Total Cart Value : Rs. {{globalVariable.myCart.getTotalCartPrice()}}</h5>
-        </div>
-        <div class="col-md-2" style="padding-top: 10px;">
-            <button class="btn btn-small btn-dark" (click)="clearCart()">Clear Cart</button>
-        </div>
-        <div class="col-md-4" style="padding-top: 10px;">
-          <button (click)="triggerShippingForm()" class="btn btn-info">See delivery options</button>
-        </div>
+      <div class="col-md-4">
+        <button class="btn btn-block btn-outline-warning" [routerLink]='["/"]' routerLinkActive="active">Buy Now</button>
       </div>
     </div>
-    <ng-template #noItemFound>
-      <div class="container card-body">
-        <div class="row">
-          <h5>There are no item in your cart right now: </h5>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <h4>Let's buy something now -></h4>
-          </div>
-          <div class="col-md-4">
-            <button class="btn btn-block btn-outline-warning" [routerLink]='["/"]' routerLinkActive="active">Buy Now</button>
-          </div>
-        </div>
-      </div>
-    </ng-template> 
-</ion-content>
+  </div>
+</ng-template>  -->

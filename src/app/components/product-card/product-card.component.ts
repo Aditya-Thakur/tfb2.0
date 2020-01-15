@@ -17,13 +17,13 @@ export class ProductCardComponent implements OnInit {
    // tslint:disable: no-input-rename
    @Input('product') product: Product;
    globalVariable = Global;
-  productVarieties: ProductVariety[];
+  productVarieties: ProductVariety[] = [];
   quantityForm;
   cartItem: CartItem = {
     product: {
       id: 0,
       category: 0,
-      subcategory: 0,
+      subCategory: 0,
       productName: '',
       productCompany: '',
       productPrice: 0,
@@ -96,9 +96,15 @@ export class ProductCardComponent implements OnInit {
     this.cart.changeQuantity(this.cartItem, change);
   }
 
-  showDetails(productId) {
+  async showDetails(productId) {
     console.log('************ showing details ************');
-    this.router.navigate(['tabs/product-details'], {queryParams : {thisId: productId}});
+    await this.switchPage(productId);
+    this.router.navigate(['/tabs/details'], {queryParams : {thisId: productId}});
+    // this.router.navigate(['/tabs/details', {item: product}]);
+  }
+
+  switchPage(productId) {
+    this.router.navigate(['/tabs/details'], {queryParams : {thisId: productId}});
   }
 
 }

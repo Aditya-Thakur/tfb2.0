@@ -8,6 +8,7 @@ import { ProductDetailsPageRoutingModule } from './product-details-routing.modul
 
 import { ProductDetailsPage } from './product-details.page';
 import { ProductCardModule } from 'src/app/components/product-card/product-card.module';
+import { ProductsPageModule } from '../products/products.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ProductCardModule } from 'src/app/components/product-card/product-card.
     ReactiveFormsModule,
     IonicModule,
     ProductDetailsPageRoutingModule,
-    ProductCardModule
+    ProductCardModule,
+    ProductsPageModule
   ],
   declarations: [ProductDetailsPage],
   exports: [

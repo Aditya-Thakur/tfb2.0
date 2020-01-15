@@ -1,0 +1,14 @@
+.otherProduct {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .product-card {
+    margin-right: 10px;
+    display: inline-block;
+  }
+  
+  .otherProduct ::-webkit-scrollbar {
+    display: none;
+  }

@@ -5,6 +5,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { User } from 'src/app/models/user';
 import { Storage } from '@ionic/storage';
 import { Global } from 'src/app/global';
+// import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,9 @@ import { Global } from 'src/app/global';
 export class LoginPage implements OnInit {
 
   loginForm; signupForm; user; data; error;
-  constructor(private router: Router, private loginService: LoginService, private storage: Storage) {
+  constructor(private router: Router, private loginService: LoginService, private storage: Storage, 
+    // private fb: Facebook
+    ) {
     this.loginForm = new FormGroup({
       email: new FormControl('',
       [
@@ -54,7 +57,11 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
   }
-
+  // fblogin() {
+  // this.fb.login(['public_profile', 'user_friends', 'email'])
+  // .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res))
+  // .catch(e => console.log('Error logging into Facebook', e));
+  // }
   openRegister() {
     this.router.navigateByUrl(`/tabs/register`);
   }

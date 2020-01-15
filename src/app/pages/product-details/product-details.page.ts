@@ -6,7 +6,7 @@ import { ShoppingService } from 'src/app/services/shopping.service';
 import { CartService } from 'src/app/services/cart.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-
+import { Global } from 'src/app/global';
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.page.html',
@@ -14,14 +14,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductDetailsPage implements OnInit {
 
-  product: Product;
-  productVarieties: ProductVariety[];
-  quantityForm;
-  cartItem: CartItem = {
-    product: {
+  slideOpts = {
+    initialSlide: 0,
+    speed: 400
+  };
+  items: Product[] = [
+    {
       id: 0,
       category: 0,
-      subcategory: 0,
+      subCategory: 0,
       productName: '',
       productCompany: '',
       productPrice: 0,
@@ -35,17 +36,29 @@ export class ProductDetailsPage implements OnInit {
       postingDate: new Date(),
       updationDate: new Date(),
       priceVarietyAvailable: false
-    },
-    productVariety: {
-      id: 0,
-      productId: 0,
-      quantityType: '',
-      productQuantity: 0,
-      productPrice: 0
-    },
-    quantity: 0
+    }
+  ];
+  product: Product = {
+    id: 0,
+    category: 0,
+    subCategory: 0,
+    productName: '',
+    productCompany: '',
+    productPrice: 0,
+    productPriceBeforeDiscount: 0,
+    productDescription: '',
+    productImage1: '',
+    productImage2: '',
+    productImage3: '',
+    shippingCharge: 0,
+    productAvailability: '',
+    postingDate: new Date(),
+    updationDate: new Date(),
+    priceVarietyAvailable: false
   };
-
+  globalVariable = Global;
+  productVarieties: ProductVariety[] = [];
+  quantityForm;
   constructor(private shoppingService: ShoppingService,
               private route: ActivatedRoute,
               private cart: CartService) {
@@ -63,6 +76,7 @@ export class ProductDetailsPage implements OnInit {
       this.product = await this.shoppingService.getProductByProductId(pId);
       console.log(this.product);
       await this.getProductVariety();
+      await this.peopleAlsoBought();
     });
     }
 
@@ -71,16 +85,24 @@ export class ProductDetailsPage implements OnInit {
       console.log(this.productVarieties);
     }
 
+  async peopleAlsoBought() {
+      try {
+        this.items = await this.shoppingService.peopleAlsoBought(this.product.category);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
   addToBasket() {
-      this.cartItem.product = this.product;
-      this.cartItem.productVariety = this.quantityForm.quantity;
-      this.cartItem.quantity = 1;
-      // if (this.cartItem.productVariety == null) {
-      //   // toast message
-      //   console.log('Please choose quantity for the item.');
-      // } else {
-      this.cart.addToCart(this.cartItem);
-      // }
+      // this.cartItem.product = this.product;
+      // this.cartItem.productVariety = this.quantityForm.quantity;
+      // this.cartItem.quantity = 1;
+      // // if (this.cartItem.productVariety == null) {
+      // //   // toast message
+      // //   console.log('Please choose quantity for the item.');
+      // // } else {
+      // this.cart.addToCart(this.cartItem);
+      // // }
     }
 
 

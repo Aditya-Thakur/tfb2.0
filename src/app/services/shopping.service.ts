@@ -43,6 +43,21 @@ export class ShoppingService {
       }
     }
 
+    // Get subcategory by id
+    async getSubcategoryByID(subcategoryid): Promise<Subcategory> {
+      try {
+        const response = await this.http.post(
+          `http://theflyingbasket.com/backend/api/getSubcategoryNameById.php`,
+           subcategoryid
+           )
+           .toPromise();
+        console.log('*********' + JSON.stringify(response['subData']));
+        return response['subData'] as Subcategory;
+      } catch (error) {
+        await this.handleError(error);
+      }
+    }
+
      // Get all product details for menu page
   async getProductsByCategoryId(categoryId: number): Promise<Product[]> {
     try {
@@ -94,6 +109,17 @@ async getProductByProductId(productId: number): Promise<Product> {
       return response['productVarietyData'] as ProductVariety[];
     } catch (error) {
       this.handleError(error);
+    }
+  }
+
+  // Get product for people also bought
+  async peopleAlsoBought(category: number): Promise<Product[]> {
+    try {
+      const response = await this.http.post(`http://theflyingbasket.com/backend/api/peopleAlsoBought.php`, category).toPromise();
+      this.products = response['productData'] as Product[];
+      return this.products;
+    } catch (error) {
+      await this.handleError(error);
     }
   }
 
