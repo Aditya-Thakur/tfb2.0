@@ -7,6 +7,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
 import { Global } from 'src/app/global';
+import { ThrowStmt } from '@angular/compiler';
 @Component({
   selector: 'app-product-card',
   templateUrl: './product-card.component.html',
@@ -14,11 +15,11 @@ import { Global } from 'src/app/global';
 })
 export class ProductCardComponent implements OnInit {
 
-   // tslint:disable: no-input-rename
-   @Input('product') product: Product;
-   globalVariable = Global;
+  // tslint:disable: no-input-rename
+  @Input('product') product: Product;
+  globalVariable = Global;
   productVarieties: ProductVariety[] = [];
-  quantityForm;
+  quantityDict = new Map<number, ProductVariety>();
   cartItem: CartItem = {
     product: {
       id: 0,
@@ -40,28 +41,17 @@ export class ProductCardComponent implements OnInit {
     },
     productVariety: {
       id: 0,
-    productId: 0,
-    quantityType: '',
-    productQuantity: 0,
-    productPrice: 0
+      productId: 0,
+      quantityType: '',
+      productQuantity: 0,
+      productPrice: 0
     },
     quantity: 0
   };
-  choosedProductVariety: ProductVariety = {
-    id : 0,
-    productId: 0,
-    quantityType: '',
-    productQuantity: 0,
-    productPrice: 0
-  };
+  choosedProductVariety: number;
 
-  constructor(private shoppingService: ShoppingService, private cart: CartService, private router: Router) {
-    this.quantityForm = new FormGroup({
-      quantity: new FormControl('', [
-        Validators.required
-      ])
-    });
-  }
+  constructor(private shoppingService: ShoppingService, private cart: CartService, private router: Router) {}
+
 
   ngOnInit() {
     this.getProductVariety();
@@ -69,15 +59,18 @@ export class ProductCardComponent implements OnInit {
 
   async getProductVariety() {
     this.productVarieties = await this.shoppingService.getProductVarietyByProductId(this.product.id);
-    console.log(this.productVarieties);
+    this.productVarieties.forEach( element => {
+      this.quantityDict.set(element.id, element);
+    });
+    console.log(this.quantityDict);
   }
 
   addToBasket() {
-    if (this.productVarieties != null) {
-      this.choosedProductVariety = this.quantityForm.value.quantity;
+    if (this.productVarieties.length !== 0) {
+      console.log('************ showing basket details ************' + this.choosedProductVariety);
+      this.cartItem.productVariety = this.quantityDict.get(this.choosedProductVariety);
     }
     this.cartItem.product = this.product;
-    this.cartItem.productVariety = this.choosedProductVariety;
     this.cartItem.quantity = 1;
     // if (this.cartItem.productVariety == null) {
     //   // toast message
@@ -86,12 +79,17 @@ export class ProductCardComponent implements OnInit {
     this.cart.addToCart(this.cartItem);
     // }
   }
-  changeQuantity(change) {
-    if (this.productVarieties != null) {
-      this.choosedProductVariety = this.quantityForm.value.quantity;
+  onQuantitySelection() {
+    if (this.productVarieties.length !== 0) {
+      console.log(this.choosedProductVariety);
     }
+  }
+  changeQuantity(change) {
+    // if (this.productVarieties != null) {
+    //   this.choosedProductVariety = this.quantityForm.value.quantity;
+    // }
     this.cartItem.product = this.product;
-    this.cartItem.productVariety = this.choosedProductVariety;
+    this.cartItem.productVariety = this.quantityDict.get(this.choosedProductVariety);
     this.cartItem.quantity = this.globalVariable.myCart.getQuantity(this.product);
     this.cart.changeQuantity(this.cartItem, change);
   }
@@ -99,12 +97,12 @@ export class ProductCardComponent implements OnInit {
   async showDetails(productId) {
     console.log('************ showing details ************');
     await this.switchPage(productId);
-    this.router.navigate(['/tabs/details'], {queryParams : {thisId: productId}});
+    this.router.navigate(['/tabs/details'], { queryParams: { thisId: productId } });
     // this.router.navigate(['/tabs/details', {item: product}]);
   }
 
   switchPage(productId) {
-    this.router.navigate(['/tabs/details'], {queryParams : {thisId: productId}});
+    this.router.navigate(['/tabs/details'], { queryParams: { thisId: productId } });
   }
 
 }

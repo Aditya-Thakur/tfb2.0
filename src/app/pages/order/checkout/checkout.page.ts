@@ -59,7 +59,9 @@ export class CheckoutPage implements OnInit {
             } else if (!(this.globalVariable.availableLocation.includes(this.globalVariable.loggedInUser.shippingPincode))) {
                 this.presentToast('Sorry we do not serve on this location yet. :(');
               } else {
-                console.log('lets order!');
+                console.log('lets order!' + JSON.stringify(this.globalVariable.myCart, null, 2)
+                 + ' ********************************' + JSON.stringify(this.shippingForm.value, null, 2));
+
               }
   }
 }
