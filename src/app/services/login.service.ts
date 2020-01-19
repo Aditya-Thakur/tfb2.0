@@ -77,17 +77,6 @@ export class LoginService {
   //     catchError(this.handleError));
   // }
 
-
-  // async placeOrder(order: Order): Promise<string>  {
-  //   try {
-  //     const response = await this.http.post(`${this.baseUrl}/api/placeOrder.php`, order).toPromise();
-  //     // tslint:disable-next-line: no-string-literal
-  //     return response['orderData'] as string;
-  //   } catch (error) {
-  //     await this.handleError(error);
-  //   }
-  // }
-
   private handleError(error: HttpErrorResponse) {
     console.log(error);
     // return an observable with a user friendly message

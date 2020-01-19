@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Global } from 'src/app/global';
 
 @Component({
   selector: 'app-my-profile',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyProfilePage implements OnInit {
 
-  constructor() { }
+  globalVariable = Global;
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+  openLogin() {
+    this.router.navigateByUrl(`/tabs/login`);
+  }
+
+  myOrders() {
+    this.router.navigateByUrl(`/tabs/myOrders`);
   }
 
 }

@@ -40,12 +40,12 @@ export class AppComponent {
     await this.getFromLocal('myCart');
     // tslint:disable: no-string-literal
     this.globalVariable.loggedInUser = this.data['loggedInUser'];
-    if (this.globalVariable.loggedInUser != null) {
+    if (this.globalVariable.loggedInUser.id !== 0) {
       this.globalVariable.loggedIn = true;
     }
-    console.log(this.data);
-    if (this.data.length() !== 0) {
-      if (this.data['myCart'] != null) {
+    console.log('Initializing app with data: ' + this.data);
+    if (this.data.length !== 0) {
+      if (this.data['myCart'].totalCartPrice !== 0) {
         this.globalVariable.myCart = this.data['myCart'];
       }
     }

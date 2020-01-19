@@ -21,6 +21,17 @@ export class OrderService {
     }
   }
 
+    // Get all order for a user.
+    async getOrderByUserId(userId: number): Promise<Order[]> {
+      try {
+        const response = await this.http.post(`http://localhost/backend/api/getOrderByUserId.php`, userId).toPromise();
+        // tslint:disable-next-line: no-string-literal
+        return response['orderData'] as Order[];
+      } catch (error) {
+        await this.handleError(error);
+      }
+    }
+
   private handleError(error: HttpErrorResponse) {
     console.log(error);
     // return an observable with a user friendly message

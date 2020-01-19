@@ -5,6 +5,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { Storage } from '@ionic/storage';
 import { Global } from 'src/app/global';
 import { User } from 'src/app/models/user';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,8 @@ import { User } from 'src/app/models/user';
 export class RegisterPage implements OnInit {
 
   signupForm; user; error;
-  constructor(private router: Router, private loginService: LoginService, private storage: Storage) {
+  constructor(private router: Router, public toastController: ToastController,
+              private loginService: LoginService, private storage: Storage) {
     this.signupForm = new FormGroup({
       name: new FormControl('', [
         Validators.required,
@@ -38,6 +40,13 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
   }
+  async presentToast(toastMessage) {
+    const toast = await this.toastController.create({
+      message: toastMessage,
+      duration: 2000
+    });
+    toast.present();
+  }
 
   signup(): void {
     this.loginService.signup(this.signupForm.value).subscribe(
@@ -46,13 +55,20 @@ export class RegisterPage implements OnInit {
         if (this.user.message == null) {
         Global.loggedIn = true;
         Global.loggedInUser = this.user;
+        this.presentToast('Welcome ' + Global.loggedInUser.name);
         this.router.navigate(['']);
+      } else {
+        this.presentToast(this.user.message);
       }
       },
       (err) => {
         this.error = err;
       }
     );
+  }
+
+  openLogin() {
+    this.router.navigateByUrl(`/tabs/login`);
   }
 
 }

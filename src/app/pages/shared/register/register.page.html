@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <form  #form="ngForm" [formGroup]="loginForm">
+  <form  #form="ngForm" [formGroup]="signupForm">
     <ion-grid>
       <ion-row justify-content-center>
         <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
@@ -70,10 +70,14 @@
                </div>
           </div>
           <div padding>
-            <ion-button  size="large" type="submit" [disabled]="form.invalid" expand="block">Register</ion-button>
+            <ion-button  size="large" type="submit" [disabled]="form.invalid" (click)="signup()" expand="block">Register</ion-button>
           </div>
         </ion-col>
       </ion-row>
     </ion-grid>
   </form>
+  <div text-center>
+    If you already have an account, please <a (click)="openLogin()" style="color: red; text-decoration: underline;">
+      login</a> here!
+      </div>
 </ion-content>
