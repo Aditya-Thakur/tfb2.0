@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <form  #form="ngForm" (ngSubmit)="register(form)">
+  <form  #form="ngForm" [formGroup]="loginForm">
     <ion-grid>
       <ion-row justify-content-center>
         <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
@@ -14,20 +14,60 @@
           </div>
           <div padding>
             <ion-item>
-              <ion-input  name="name" type="text" placeholder="Name" ngModel required></ion-input>
+              <ion-input  formControlName="name" name="name" type="text" placeholder="Name" ngModel required></ion-input>
             </ion-item>
+            <div
+                 *ngIf="signupForm.controls.name.invalid && (signupForm.controls.name.dirty || signupForm.controls.name.touched)"
+                 class="alert alert-danger">
+                 <div *ngIf="signupForm.controls.name.errors.required">
+                   Name is required.
+                 </div>
+                 <div *ngIf="signupForm.controls.name.errors.minlength">
+                   Name must be at least 4 characters long.
+                 </div>
+                 <div *ngIf="signupForm.controls.name.errors.pattern">
+                   Name must be valid.
+                 </div>
+               </div>
             <ion-item>
-              <ion-input name="email" type="email" placeholder="your@email.com" ngModel required></ion-input>
+              <ion-input formControlName="email" name="email" type="email" placeholder="your@email.com" ngModel required></ion-input>
             </ion-item>
+            <div
+                 *ngIf="signupForm.controls.email.invalid && (signupForm.controls.email.dirty || signupForm.controls.email.touched)"
+                 class="alert alert-danger">
+                 <div *ngIf="signupForm.controls.email.errors.required">
+                   Email is required.
+                 </div>
+                 <div *ngIf="signupForm.controls.email.errors.pattern">
+                   Email must be valid.
+                 </div>
+               </div>
             <ion-item>
-              <ion-input name="contactNo" type="number" placeholder="9999999999" ngModel required></ion-input>
+              <ion-input name="contactNo" formControlName="contactNo" type="number" placeholder="9999999999" ngModel required></ion-input>
             </ion-item>
+            <div
+                 *ngIf="signupForm.controls.contactNo.invalid && (signupForm.controls.contactNo.dirty || signupForm.controls.contactNo.touched)"
+                 class="alert alert-danger">
+                 <div *ngIf="signupForm.controls.contactNo.errors.required">
+                   Contact number is required.
+                 </div>
+                 <div *ngIf="signupForm.controls.contactNo.errors.pattern">
+                   Contact No must be of 10 digit and valid.
+                 </div>
+               </div>
             <ion-item>
-              <ion-input name="password" type="password" placeholder="Password" ngModel required></ion-input>
+              <ion-input name="password" formControlName="password" type="password" placeholder="Password" ngModel required></ion-input>
             </ion-item>
-            <ion-item>
-              <ion-input name="confirm" type="password" placeholder="Password again" ngModel required></ion-input>
-            </ion-item>
+            <div
+                 *ngIf="signupForm.controls.password.invalid && (signupForm.controls.password.dirty || signupForm.controls.password.touched)"
+                 class="alert alert-danger">
+                 <div *ngIf="signupForm.controls.password.errors.required">
+                   Password is required.
+                 </div>
+                 <div *ngIf="signupForm.controls.password.errors.pattern">
+                   Password should be atleast 6 characters long and of valid characters.
+                 </div>
+               </div>
           </div>
           <div padding>
             <ion-button  size="large" type="submit" [disabled]="form.invalid" expand="block">Register</ion-button>

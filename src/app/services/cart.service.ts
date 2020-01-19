@@ -41,6 +41,14 @@ export class CartService {
     try {
       const index = this.globalVariable.myCart.myCartItems.findIndex(e => e.product.id === cartItem.product.id);
       this.globalVariable.myCart.myCartItems[index].quantity += change;
+      // this.saveInLocal('myCart', this.globalVariable.myCart);
+      const quantity = this.globalVariable.myCart.myCartItems[index].quantity;
+      console.log('in removeFrom CArt with quantity ' + quantity + 'for '
+      + this.globalVariable.myCart.myCartItems[index].product.productName);
+      if (quantity === 0) {
+        this.globalVariable.myCart.myCartItems.splice(index, 1);
+        console.log('removed ' + JSON.stringify(cartItem));
+      }
       this.saveInLocal('myCart', this.globalVariable.myCart);
     } catch (e) {
       console.log(e);
@@ -51,9 +59,12 @@ export class CartService {
     this.getFromLocal('myCart');
     // this.myCart  = this.data['myCart'];
     const index = this.globalVariable.myCart.myCartItems.findIndex((e) => e.product.id === cartItem.product.id);
-    const quantity = this.globalVariable.myCart[index].quantity -= 1;
+    this.globalVariable.myCart[index].quantity -= 1;
+    const quantity = this.globalVariable.myCart[index].quantity;
+    console.log('in removeFrom CArt with quantity ' + quantity + 'for ' + cartItem.product.productName);
     if (quantity === 0) {
       this.globalVariable.myCart.myCartItems.splice(index, 1);
+      console.log('removed ' + JSON.stringify(cartItem));
     }
     this.saveInLocal('myCart', this.globalVariable.myCart);
   }

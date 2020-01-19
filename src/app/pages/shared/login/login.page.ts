@@ -14,7 +14,7 @@ import { Global } from 'src/app/global';
 })
 export class LoginPage implements OnInit {
 
-  loginForm; signupForm; user; data; error;
+  loginForm; user; data; error;
   constructor(private router: Router, private loginService: LoginService, private storage: Storage,
     // private fb: Facebook
     ) {

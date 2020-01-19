@@ -7,6 +7,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Global } from 'src/app/global';
+import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.page.html',
@@ -60,6 +61,7 @@ export class ProductDetailsPage implements OnInit {
   productVarieties: ProductVariety[] = [];
   quantityForm;
   constructor(private shoppingService: ShoppingService,
+              public toastController: ToastController,
               private route: ActivatedRoute,
               private cart: CartService) {
     this.quantityForm = new FormGroup({
@@ -67,6 +69,14 @@ export class ProductDetailsPage implements OnInit {
         Validators.required
       ])
     });
+  }
+
+  async presentToast(toastMessage) {
+    const toast = await this.toastController.create({
+      message: toastMessage,
+      duration: 2000
+    });
+    toast.present();
   }
 
   async ngOnInit() {

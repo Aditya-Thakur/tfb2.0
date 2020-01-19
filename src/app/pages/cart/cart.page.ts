@@ -4,6 +4,7 @@ import { Cart } from 'src/app/models/cart';
 import { Global } from 'src/app/global';
 import { from } from 'rxjs';
 import { Router } from '@angular/router';
+import { CartItem } from 'src/app/models/cart-item';
 
 @Component({
   selector: 'app-cart',
@@ -28,6 +29,11 @@ export class CartPage implements OnInit {
   }
   checkout() {
     this.router.navigateByUrl(`/tabs/checkout`);
+  }
+
+  clearCart() {
+    const myCartItems: CartItem[] = [];
+    this.globalVariable.myCart = new Cart(myCartItems);
   }
 
 }
