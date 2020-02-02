@@ -12,7 +12,7 @@ export class Cart {
     let totalPrice = 0;
     if (this.myCartItems.length > 0) {
       this.myCartItems.forEach(element => {
-        totalPrice += element.product.productPrice * element.quantity;
+        totalPrice += element.productVariety.productPrice * element.quantity;
       });
     }
     this.totalCartPrice = totalPrice;

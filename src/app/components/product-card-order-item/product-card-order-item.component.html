@@ -25,12 +25,11 @@
                   Rs. {{cartItem.product.productPrice}}/-
                 </ion-row>
               </ng-template>
-            <ion-row *ngIf="cartItem.quantity == 1; else inCart">
+            <!-- <ion-row *ngIf="cartItem.quantity == 1; else inCart">
               <ion-button color="danger" (click)="removeFromBasket()">Remove from &nbsp;<ion-icon name="basket">
                 </ion-icon>
               </ion-button>
-            </ion-row>
-            <ng-template #inCart>
+            </ion-row> -->
               <ion-row>
                 <ion-button (click)="changeQuantity(-1)" color="warning">
                   <ion-text color="dark">-</ion-text>
@@ -43,7 +42,6 @@
                   <ion-text color="dark">+</ion-text>
                 </ion-button>
               </ion-row>
-            </ng-template>
           </ion-grid>
         </ion-col>
       </ion-row>

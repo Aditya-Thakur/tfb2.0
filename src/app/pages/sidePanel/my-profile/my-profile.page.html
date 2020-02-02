@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="globalVariable.loggedInUser.id !== 0">
+  <div *ngIf="globalVariable.loggedIn">
     <ion-text>Checkout your orders here..<a (click)="myOrders()">My Orders</a> </ion-text>
     <form (ngSubmit)="logForm()">
       <ion-list>

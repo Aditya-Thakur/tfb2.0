@@ -77,16 +77,28 @@
         </ion-item>
       
         <ion-item class="activated">
-          <ion-row *ngIf="productVarieties.length != 0; else priceActual">
+          <!-- <ion-row *ngIf="productVarieties.length != 0; else priceActual">
             <mat-label style="padding-top: 2px;">Choose Quantity</mat-label>
             <mat-form-field>
-              <!-- <mat-label>Choose Quantity</mat-label> -->
+              <mat-label>Choose Quantity</mat-label>
               <select matNativeControl required>
                 <option *ngFor="let productVariety of productVarieties" value="productVariety.id">
                   {{productVariety.productQuantity}} {{productVariety.quantityType}} - Rs. {{productVariety.productPrice}}/-
                 </option>
               </select>
             </mat-form-field>
+          </ion-row> -->
+          <ion-row *ngIf="productVarieties.length != 0; else priceActual">
+            <form (ngSubmit)="quantityForm()">
+              <ion-select name="choosedProductVariety" [(ngModel)]="choosedProductVariety" okText="Okay" cancelText="Cancel">
+                <ion-select-option *ngFor="let productVariety of productVarieties;"  value="{{productVariety.id}}" [selected]="productVariety.id == productVarieties[0].id">
+                  {{productVariety.productQuantity}} {{productVariety.quantityType}} - Rs. {{productVariety.productPrice}}/-
+                </ion-select-option>
+              </ion-select>
+            </form>
+          <ion-text>
+            {{quantityDict.get(choosedProductVariety).productQuantity}} {{quantityDict.get(choosedProductVariety).quantityType}} - Rs. {{quantityDict.get(choosedProductVariety).productPrice}}/-
+          </ion-text>
           </ion-row>
           <ng-template #priceActual>
             <ion-row class="ion-text-center">

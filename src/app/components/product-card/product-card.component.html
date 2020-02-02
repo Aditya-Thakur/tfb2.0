@@ -18,29 +18,16 @@
             </ion-row>
             <ion-row *ngIf="productVarieties.length != 0; else priceActual">
               <form (ngSubmit)="quantityForm()">
-                <ion-select placeholder="Choose quantity" name="choosedProductVariety" [(ngModel)]="choosedProductVariety" okText="Okay" cancelText="Dismiss">
-                  <ion-select-option *ngFor="let productVariety of productVarieties;"  value="{{productVariety.id}}">
+                <ion-select name="choosedProductVariety" [(ngModel)]="choosedProductVariety" okText="Okay" cancelText="Cancel">
+                  <ion-select-option *ngFor="let productVariety of productVarieties;"  value="{{productVariety.id}}" [selected]="productVariety.id == productVarieties[0].id">
                     {{productVariety.productQuantity}} {{productVariety.quantityType}} - Rs. {{productVariety.productPrice}}/-
                   </ion-select-option>
                 </ion-select>
               </form>
+            <ion-text>
+              {{quantityDict.get(choosedProductVariety).productQuantity}} {{quantityDict.get(choosedProductVariety).quantityType}} - Rs. {{quantityDict.get(choosedProductVariety).productPrice}}/-
+            </ion-text>
             </ion-row>
-            <!-- <ion-row *ngIf="productVarieties.length != 0; else priceActual">
-              <mat-label style="padding-top: 2px;">Choose Quantity</mat-label>
-              <mat-form-field color="danger">
-                <mat-label>Choose Quantity</mat-label>
-                <select matNativeControl required>
-                  <option *ngFor="let productVariety of productVarieties" value="productVariety.id">
-                    {{productVariety.productQuantity}} {{productVariety.quantityType}} - Rs. {{productVariety.productPrice}}/-
-                  </option>
-                </select>
-                <mat-select style="color: blue;" placeholder="Choose Quantity" [(ngModel)]="choosedProductVariety" (change)="onQuantitySelection()">
-                  <mat-option style="color: blue;" *ngFor="let productVariety of productVarieties" [value]="productVariety.id">
-                    <span style="color: whitesmoke;">{{productVariety.productQuantity}} {{productVariety.quantityType}} - Rs. {{productVariety.productPrice}}/-</span>
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </ion-row> -->
             <ng-template #priceActual>
               <ion-row class="ion-text-center">
                 Rs. {{product.productPrice}}/-

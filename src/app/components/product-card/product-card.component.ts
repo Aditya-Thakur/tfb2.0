@@ -49,22 +49,25 @@ export class ProductCardComponent implements OnInit {
   };
   choosedProductVariety = 0;
 
-  constructor(private shoppingService: ShoppingService,
-              public toastController: ToastController,
-              private cart: CartService,
-              private router: Router) {}
+  constructor(
+    private shoppingService: ShoppingService,
+    public toastController: ToastController,
+    private cart: CartService,
+    private router: Router) { }
 
 
-  ngOnInit() {
-    this.getProductVariety();
+  async ngOnInit() {
+    await this.getProductVariety();
+    if (this.productVarieties.length !== 0) {
+      this.choosedProductVariety = this.productVarieties[0].id;
+    }
   }
 
   async getProductVariety() {
     this.productVarieties = await this.shoppingService.getProductVarietyByProductId(this.product.id);
-    this.productVarieties.forEach( element => {
+    this.productVarieties.forEach(element => {
       this.quantityDict.set(element.id, element);
     });
-    console.log(this.quantityDict);
   }
 
   async presentToast(toastMessage) {
@@ -76,8 +79,8 @@ export class ProductCardComponent implements OnInit {
   }
 
   addToBasket() {
-    if (this.productVarieties.length !== 0 || this.choosedProductVariety == null || this.choosedProductVariety == undefined) {
-      console.log('************ showing basket details ************' + this.choosedProductVariety);
+    if (this.productVarieties.length !== 0 || this.choosedProductVariety === null || this.choosedProductVariety === undefined) {
+      // console.log('************ showing basket details ************' + this.choosedProductVariety);
       this.cartItem.productVariety = this.quantityDict.get(this.choosedProductVariety);
     } else {
       this.cartItem.productVariety.id = 0;
@@ -94,12 +97,12 @@ export class ProductCardComponent implements OnInit {
       this.presentToast('Please choose quantity of item');
       console.log('Please choose quantity for the item.');
     } else {
-    this.cart.addToCart(this.cartItem);
+      this.cart.addToCart(this.cartItem);
     }
   }
   onQuantitySelection() {
     if (this.productVarieties.length !== 0) {
-      console.log(this.choosedProductVariety);
+      // console.log(this.choosedProductVariety);
     }
   }
   changeQuantity(change) {

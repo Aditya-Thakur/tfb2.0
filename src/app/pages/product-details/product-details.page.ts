@@ -19,6 +19,37 @@ export class ProductDetailsPage implements OnInit {
     initialSlide: 0,
     speed: 400
   };
+  pId = 0;
+  cartItem: CartItem = {
+    product: {
+      id: 0,
+      category: 0,
+      subCategory: 0,
+      productName: '',
+      productCompany: '',
+      productPrice: 0,
+      productPriceBeforeDiscount: 0,
+      productDescription: '',
+      productImage1: '',
+      productImage2: '',
+      productImage3: '',
+      shippingCharge: 0,
+      productAvailability: '',
+      postingDate: new Date(),
+      updationDate: new Date(),
+      priceVarietyAvailable: false
+    },
+    productVariety: {
+      id: 0,
+      productId: 0,
+      quantityType: '',
+      productQuantity: 0,
+      productPrice: 0
+    },
+    quantity: 0
+  };
+  choosedProductVariety = 0;
+  quantityDict = new Map<number, ProductVariety>();
   items: Product[] = [
     {
       id: 0,
@@ -82,17 +113,22 @@ export class ProductDetailsPage implements OnInit {
   async ngOnInit() {
     await this.route.queryParams.subscribe(async queryParams => {
       // tslint:disable: no-string-literal
-      const pId = Number(queryParams['thisId']);
-      this.product = await this.shoppingService.getProductByProductId(pId);
+      this.pId = Number(queryParams['thisId']);
+      this.product = await this.shoppingService.getProductByProductId(this.pId);
       console.log(this.product);
       await this.getProductVariety();
       await this.peopleAlsoBought();
     });
     }
+    changeQuantity(change) {
+      this.cart.changeQuantity(this.cartItem.product.id, change);
+    }
 
   async getProductVariety() {
-      this.productVarieties = await this.shoppingService.getProductVarietyByProductId(this.product.id);
-      console.log(this.productVarieties);
+    this.productVarieties = await this.shoppingService.getProductVarietyByProductId(this.pId);
+    this.productVarieties.forEach(element => {
+      this.quantityDict.set(element.id, element);
+    });
     }
 
   async peopleAlsoBought() {
@@ -102,17 +138,27 @@ export class ProductDetailsPage implements OnInit {
         console.log(e);
       }
     }
-
-  addToBasket() {
-      // this.cartItem.product = this.product;
-      // this.cartItem.productVariety = this.quantityForm.quantity;
-      // this.cartItem.quantity = 1;
-      // // if (this.cartItem.productVariety == null) {
-      // //   // toast message
-      // //   console.log('Please choose quantity for the item.');
-      // // } else {
-      // this.cart.addToCart(this.cartItem);
-      // // }
+    addToBasket() {
+      if (this.productVarieties.length !== 0 || this.choosedProductVariety === null || this.choosedProductVariety === undefined) {
+        // console.log('************ showing basket details ************' + this.choosedProductVariety);
+        this.cartItem.productVariety = this.quantityDict.get(this.choosedProductVariety);
+      } else {
+        this.cartItem.productVariety.id = 0;
+        this.cartItem.productVariety.productId = this.product.id;
+        this.cartItem.productVariety.productPrice = this.product.productPrice;
+        this.cartItem.productVariety.productQuantity = 0;
+        this.cartItem.productVariety.quantityType = 'default';
+        this.choosedProductVariety = 1000;
+      }
+      this.cartItem.product = this.product;
+      this.cartItem.quantity = 1;
+      if (this.choosedProductVariety === 0) {
+        // toast message
+        this.presentToast('Please choose quantity of item');
+        console.log('Please choose quantity for the item.');
+      } else {
+        this.cart.addToCart(this.cartItem);
+      }
     }
 
 
