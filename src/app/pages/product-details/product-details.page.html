@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-    <!-- <ion-grid>
+  <!-- <ion-grid>
         <ion-row>
             <ion-slides pager="true" [options]="slideOpts">
                 <ion-slide>
@@ -56,28 +56,31 @@
             </ion-row>
       </ion-grid> -->
 
-      <ion-card>
-        <ion-item>
-          <ion-slides pager="true" [options]="slideOpts">
-            <ion-slide>
-              <img src="http://theflyingbasket.com/assets/productimages/{{product.id}}/{{product.productImage1}}" alt="First slide">
-            </ion-slide>
-            <ion-slide>
-              <img src="http://theflyingbasket.com/assets/productimages/{{product.id}}/{{product.productImage2}}" alt="Second slide">
-            </ion-slide>
-            <ion-slide>
-              <img src="http://theflyingbasket.com/assets/productimages/{{product.id}}/{{product.productImage3}}" alt="Third slide">
-            </ion-slide>
-          </ion-slides>
-        </ion-item>
-      
-        <ion-item>
-          <span class="productPrice" style="text-decoration: line-through;">Rs.
-            {{product.productPriceBeforeDiscount}}</span>
-        </ion-item>
-      
-        <ion-item class="activated">
-          <!-- <ion-row *ngIf="productVarieties.length != 0; else priceActual">
+  <ion-card>
+    <ion-item>
+      <ion-slides pager="true" [options]="slideOpts">
+        <ion-slide>
+          <img src="http://theflyingbasket.com/assets/productimages/{{product.id}}/{{product.productImage1}}"
+            alt="First slide">
+        </ion-slide>
+        <ion-slide>
+          <img src="http://theflyingbasket.com/assets/productimages/{{product.id}}/{{product.productImage2}}"
+            alt="Second slide">
+        </ion-slide>
+        <ion-slide>
+          <img src="http://theflyingbasket.com/assets/productimages/{{product.id}}/{{product.productImage3}}"
+            alt="Third slide">
+        </ion-slide>
+      </ion-slides>
+    </ion-item>
+
+    <ion-item>
+      <span class="productPrice" style="text-decoration: line-through;">Rs.
+        {{product.productPriceBeforeDiscount}}</span>
+    </ion-item>
+
+    <ion-item class="activated">
+      <!-- <ion-row *ngIf="productVarieties.length != 0; else priceActual">
             <mat-label style="padding-top: 2px;">Choose Quantity</mat-label>
             <mat-form-field>
               <mat-label>Choose Quantity</mat-label>
@@ -88,61 +91,65 @@
               </select>
             </mat-form-field>
           </ion-row> -->
-          <ion-row *ngIf="productVarieties.length != 0; else priceActual">
-            <form (ngSubmit)="quantityForm()">
-              <ion-select name="choosedProductVariety" [(ngModel)]="choosedProductVariety" okText="Okay" cancelText="Cancel">
-                <ion-select-option *ngFor="let productVariety of productVarieties;"  value="{{productVariety.id}}" [selected]="productVariety.id == productVarieties[0].id">
-                  {{productVariety.productQuantity}} {{productVariety.quantityType}} - Rs. {{productVariety.productPrice}}/-
-                </ion-select-option>
-              </ion-select>
-            </form>
+      <ion-grid>
+        <ion-row *ngIf="productVarieties.length != 0; else priceActual">
+          <form (ngSubmit)="quantityForm()">
+            <ion-select name="choosedProductVariety" [(ngModel)]="choosedProductVariety" okText="Okay"
+              cancelText="Cancel">
+              <ion-select-option *ngFor="let productVariety of productVarieties;" value="{{productVariety.id}}"
+                [selected]="productVariety.id == productVarieties[0].id">
+                {{productVariety.productQuantity}} {{productVariety.quantityType}} - Rs.
+                {{productVariety.productPrice}}/-
+              </ion-select-option>
+            </ion-select>
+          </form>
           <ion-text>
-            {{quantityDict.get(choosedProductVariety).productQuantity}} {{quantityDict.get(choosedProductVariety).quantityType}} - Rs. {{quantityDict.get(choosedProductVariety).productPrice}}/-
+            {{quantityDict.get(choosedProductVariety).productQuantity}}
+            {{quantityDict.get(choosedProductVariety).quantityType}} - Rs.
+            {{quantityDict.get(choosedProductVariety).productPrice}}/-
           </ion-text>
+        </ion-row>
+        <ng-template #priceActual>
+          <ion-row class="ion-text-center">
+            Rs. {{product.productPrice}}/-
           </ion-row>
-          <ng-template #priceActual>
-            <ion-row class="ion-text-center">
-              Rs. {{product.productPrice}}/-
-            </ion-row>
-          </ng-template>
-          <ion-row *ngIf="globalVariable.myCart.getQuantity(product) == 0; else inCart">
-            <ion-button (click)="addToBasket()">Add to basket <ion-icon name="basket"></ion-icon>
-            </ion-button>
-          </ion-row>
-          <ng-template #inCart>
-              <ion-button (click)="changeQuantity(-1)" color="warning"><ion-text color="dark">-</ion-text></ion-button>
-              <ion-text>{{globalVariable.myCart.getQuantity(product)}} in &nbsp;<ion-icon name="basket"></ion-icon></ion-text>
-              <ion-button (click)="changeQuantity(1)" color="secondary"><ion-text color="dark">+</ion-text></ion-button>
-          </ng-template>
-        </ion-item>
-      
-        <ion-item>
-          <ion-row>
-            <b>Description:</b>
-            <div [innerHTML]="product.productDescription"></div>
-          </ion-row>
-        </ion-item>
-        <ion-item>
-          <ion-title>People also bought:</ion-title>
-        </ion-item>
-      <ion-item>
-        <div class="otherProduct">
-          <ng-container *ngFor="let product of items">
-            <div class="product-card">
-              <app-product-card [product]="product">
-              </app-product-card>
-            </div>
-          </ng-container>
-        </div>
-      </ion-item>
-      </ion-card>
-      <!-- <ion-item>
-        <ion-virtual-scroll [items]="items">
-          <ion-item *virtualItem="let item">
-            <app-product-card [product]="item">
+        </ng-template>
+        <ion-row *ngIf="globalVariable.myCart.getQuantity(product) == 0; else inCart">
+          <ion-button (click)="addToBasket()">Add to basket <ion-icon name="basket"></ion-icon>
+          </ion-button>
+        </ion-row>
+        <ng-template #inCart>
+          <ion-button (click)="changeQuantity(-1)" color="warning">
+            <ion-text color="dark">-</ion-text>
+          </ion-button>
+          <ion-text>{{globalVariable.myCart.getQuantity(product)}} in &nbsp;<ion-icon name="basket"></ion-icon>
+          </ion-text>
+          <ion-button (click)="changeQuantity(1)" color="secondary">
+            <ion-text color="dark">+</ion-text>
+          </ion-button>
+        </ng-template>
+      </ion-grid>
+    </ion-item>
+
+    <ion-item>
+      <ion-row>
+        <b>Description:</b>
+        <div [innerHTML]="product.productDescription"></div>
+      </ion-row>
+    </ion-item>
+    <ion-item>
+      <ion-title>People also bought:</ion-title>
+    </ion-item>
+    <ion-item>
+      <div class="otherProduct">
+        <ng-container *ngFor="let product of items">
+          <div class="product-card">
+            <app-product-card [product]="product">
             </app-product-card>
-          </ion-item>
-        </ion-virtual-scroll>
-      </ion-item> -->
+          </div>
+        </ng-container>
+      </div>
+    </ion-item>
+  </ion-card>
 
 </ion-content>
