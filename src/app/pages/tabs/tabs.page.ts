@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { Global } from 'src/app/global';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-tabs',
@@ -12,7 +13,7 @@ export class TabsPage implements OnInit {
 
   private currentColor: string;
   globalVariable = Global;
-  constructor(private router: Router, private menu: MenuController) {
+  constructor(private router: Router, private menu: MenuController, private storage: StorageService) {
     this.currentColor = 'success';
   }
 
@@ -56,6 +57,7 @@ export class TabsPage implements OnInit {
   }
   logout() {
     this.globalVariable.loggedIn = false;
+    this.storage.clearAll();
   }
 
 }

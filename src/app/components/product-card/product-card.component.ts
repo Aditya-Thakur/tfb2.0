@@ -76,7 +76,7 @@ export class ProductCardComponent implements OnInit {
   }
 
   addToBasket() {
-    if (this.productVarieties.length !== 0) {
+    if (this.productVarieties.length !== 0 || this.choosedProductVariety == null || this.choosedProductVariety == undefined) {
       console.log('************ showing basket details ************' + this.choosedProductVariety);
       this.cartItem.productVariety = this.quantityDict.get(this.choosedProductVariety);
     } else {
@@ -106,10 +106,7 @@ export class ProductCardComponent implements OnInit {
     // if (this.productVarieties != null) {
     //   this.choosedProductVariety = this.quantityForm.value.quantity;
     // }
-    this.cartItem.product = this.product;
-    this.cartItem.productVariety = this.quantityDict.get(this.choosedProductVariety);
-    this.cartItem.quantity = this.globalVariable.myCart.getQuantity(this.product);
-    this.cart.changeQuantity(this.cartItem, change);
+    this.cart.changeQuantity(this.cartItem.product.id, change);
   }
 
   async showDetails(productId) {

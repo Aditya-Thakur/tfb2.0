@@ -12,8 +12,8 @@
 
   <ion-grid>
     <ion-row *ngFor="let cartItem of globalVariable.myCart.myCartItems">
-        <app-product-card [product]="cartItem.product">
-          </app-product-card>
+        <app-product-card-order-item [cartItem]="cartItem">
+          </app-product-card-order-item>
     </ion-row>
   </ion-grid>
 

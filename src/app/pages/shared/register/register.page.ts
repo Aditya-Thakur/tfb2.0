@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { Global } from 'src/app/global';
 import { User } from 'src/app/models/user';
 import { ToastController } from '@ionic/angular';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,7 @@ export class RegisterPage implements OnInit {
 
   signupForm; user; error;
   constructor(private router: Router, public toastController: ToastController,
-              private loginService: LoginService, private storage: Storage) {
+              private loginService: LoginService, private storage: StorageService) {
     this.signupForm = new FormGroup({
       name: new FormControl('', [
         Validators.required,
@@ -55,6 +56,7 @@ export class RegisterPage implements OnInit {
         if (this.user.message == null) {
         Global.loggedIn = true;
         Global.loggedInUser = this.user;
+        this.storage.saveInLocal('loggedInUser', this.user);
         this.presentToast('Welcome ' + Global.loggedInUser.name);
         this.router.navigate(['']);
       } else {

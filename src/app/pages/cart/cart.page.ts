@@ -26,6 +26,7 @@ export class CartPage implements OnInit {
 
   ngOnInit() {
     this.myCart = this.globalVariable.myCart;
+    console.log(this.myCart);
   }
   checkout() {
     this.router.navigateByUrl(`/tabs/checkout`);

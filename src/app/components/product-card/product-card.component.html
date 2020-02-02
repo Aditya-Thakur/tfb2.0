@@ -20,7 +20,7 @@
               <form (ngSubmit)="quantityForm()">
                 <ion-select placeholder="Choose quantity" name="choosedProductVariety" [(ngModel)]="choosedProductVariety" okText="Okay" cancelText="Dismiss">
                   <ion-select-option *ngFor="let productVariety of productVarieties;"  value="{{productVariety.id}}">
-                    {{productVariety.productQuantity}} {{productVariety.quantityType}} - {{productVariety.productPrice}}
+                    {{productVariety.productQuantity}} {{productVariety.quantityType}} - Rs. {{productVariety.productPrice}}/-
                   </ion-select-option>
                 </ion-select>
               </form>

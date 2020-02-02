@@ -1,7 +1,7 @@
 <ion-menu side="start">
   <ion-header>
     <ion-toolbar translucent>
-      <ion-title style="color: #4aad77;">Hello {{globalVariable.loggedInUser.name}}</ion-title>
+      <ion-title *ngIf="globalVariable.loggedIn" style="color: #4aad77;">Hello {{globalVariable.loggedInUser.name}}</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content style="color: #4aad77;">
@@ -55,14 +55,14 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-buttons slot="primary">
+    <ion-buttons>
       <ion-button (click)="openHomeByIcon()">
-        <img class="icon-img" src="../../../assets/icon/favicon.ico">
+        <img class="icon-img" src="../../../assets/icon/favicon.png">
       </ion-button>
-      <ion-title>The Flying Basket</ion-title>
-      <ion-button (click)="openSearch()">
+      <ion-title slot="primary">The Flying Basket</ion-title>
+      <!-- <ion-button (click)="openSearch()">
         <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
+      </ion-button> -->
     </ion-buttons>
   </ion-toolbar>
   <ion-content>

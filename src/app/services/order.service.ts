@@ -24,11 +24,12 @@ export class OrderService {
     // Get all order for a user.
     async getOrderByUserId(userId: number): Promise<Order[]> {
       try {
-        const response = await this.http.post(`http://localhost/backend/api/getOrderByUserId.php`, userId).toPromise();
+        // const response = await this.http.post(`http://localhost/backend/api/getOrderByUserId2.php`, userId).toPromise();
+        const response = await this.http.post(`http://theflyingbasket.com/backend/api/getOrderByUserId2.php`, userId).toPromise();
         // tslint:disable-next-line: no-string-literal
         return response['orderData'] as Order[];
       } catch (error) {
-        await this.handleError(error);
+        this.handleError(error);
       }
     }
 

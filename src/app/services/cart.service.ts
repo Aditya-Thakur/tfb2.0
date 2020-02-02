@@ -1,8 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
 import { CartItem } from '../models/cart-item';
 import { Cart } from '../models/cart';
-import { Storage } from '@ionic/storage';
 import { Global } from 'src/app/global';
+import { StorageService } from './storage.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,32 +14,23 @@ export class CartService {
 
   public myCartItems: CartItem[] = [];
 
-  constructor(private storage: Storage) { }
-
-
-
-  async getFromLocal(key) {
-    this.data[key] = this.storage.get(key);
-  }
-  async saveInLocal(key, val) {
-    this.storage.set(key, val);
-  }
+  constructor(private storage: StorageService) { }
 
   async addToCart(cartItem: CartItem) {
     try {
       this.myCartItems.push(cartItem);
       this.globalVariable.myCart = new Cart(this.myCartItems);
-      this.saveInLocal('myCart', this.globalVariable.myCart);
-      this.getFromLocal('myCart');
+      this.storage.saveInLocal('myCart', this.globalVariable.myCart);
+      this.data['myCart'] = this.storage.getFromLocal('myCart');
       console.log(this.data);
     } catch (e) {
       console.log(e);
     }
   }
 
-  async changeQuantity(cartItem: CartItem, change: number) {
+  async changeQuantity(cartItemProductId: number, change: number) {
     try {
-      const index = this.globalVariable.myCart.myCartItems.findIndex(e => e.product.id === cartItem.product.id);
+      const index = this.globalVariable.myCart.myCartItems.findIndex(e => e.product.id === cartItemProductId);
       this.globalVariable.myCart.myCartItems[index].quantity += change;
       // this.saveInLocal('myCart', this.globalVariable.myCart);
       const quantity = this.globalVariable.myCart.myCartItems[index].quantity;
@@ -47,17 +38,16 @@ export class CartService {
       + this.globalVariable.myCart.myCartItems[index].product.productName);
       if (quantity === 0) {
         this.globalVariable.myCart.myCartItems.splice(index, 1);
-        console.log('removed ' + JSON.stringify(cartItem));
+        console.log('removed ' + JSON.stringify(cartItemProductId));
       }
-      this.saveInLocal('myCart', this.globalVariable.myCart);
+      this.storage.saveInLocal('myCart', this.globalVariable.myCart);
     } catch (e) {
       console.log(e);
     }
   }
 
   async removeFromCart(cartItem: CartItem) {
-    this.getFromLocal('myCart');
-    // this.myCart  = this.data['myCart'];
+    // this.data['myCart'] = this.storage.getFromLocal('myCart');
     const index = this.globalVariable.myCart.myCartItems.findIndex((e) => e.product.id === cartItem.product.id);
     this.globalVariable.myCart[index].quantity -= 1;
     const quantity = this.globalVariable.myCart[index].quantity;
@@ -66,7 +56,7 @@ export class CartService {
       this.globalVariable.myCart.myCartItems.splice(index, 1);
       console.log('removed ' + JSON.stringify(cartItem));
     }
-    this.saveInLocal('myCart', this.globalVariable.myCart);
+    this.storage.saveInLocal('myCart', this.globalVariable.myCart);
   }
 
 }

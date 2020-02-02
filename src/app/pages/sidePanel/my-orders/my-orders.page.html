@@ -5,5 +5,18 @@
 </ion-header>
 
 <ion-content>
+  <ion-header>
+    <ion-button expand="full" color="secondary">Your Orders:</ion-button>
+</ion-header>
+
+<ion-grid>
+  <ion-grid *ngFor = "let order of myOrders">
+    <ion-row *ngFor="let cartItem of order.cart.myCartItems">
+        <app-ordered-item [cartItem]="cartItem">
+          </app-ordered-item>
+    </ion-row>
+    <ion-button expand="full" color="primary">Older Orders:</ion-button>
+  </ion-grid>
+</ion-grid>
 
 </ion-content>

@@ -8,9 +8,9 @@ import { CartPageRoutingModule } from './cart-routing.module';
 
 import { CartPage } from './cart.page';
 import { ProductsPageModule } from '../products/products.module';
-// import { ProductCardComponent } from '../../components/product-card/product-card.component';
+import { ProductCardOrderItemComponent } from '../../components/product-card-order-item/product-card-order-item.component';
+import { ProductCardOrderItemModule } from 'src/app/components/product-card-order-item/product-card-order-item.module';
 
-// import { ProductCardModule } from 'src/app/components/product-card/product-card.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,9 +18,10 @@ import { ProductsPageModule } from '../products/products.module';
     ReactiveFormsModule,
     IonicModule,
     CartPageRoutingModule,
-    ProductsPageModule
+    ProductsPageModule,
+    ProductCardOrderItemModule
   ],
-  declarations: [CartPage],
+  declarations: [CartPage, ProductCardOrderItemComponent],
   exports: [ProductsPageModule]
 })
 export class CartPageModule {}

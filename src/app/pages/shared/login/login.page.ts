@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
 import { User } from 'src/app/models/user';
-import { Storage } from '@ionic/storage';
+// import { Storage } from '@ionic/storage';
 import { Global } from 'src/app/global';
 import { ToastController } from '@ionic/angular';
 // import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginPage implements OnInit {
   loginForm; user; data; error;
   constructor(private router: Router,
               public toastController: ToastController,
-              private loginService: LoginService, private storage: Storage,
+              private loginService: LoginService,
+              private storage: StorageService
     // private fb: Facebook
     ) {
     this.loginForm = new FormGroup({
@@ -33,12 +35,6 @@ export class LoginPage implements OnInit {
         Validators.pattern('[A-Za-z0-9!@#$%^&*()-=_+]{6,20}')
       ])
     });
-  }
-  async getFromLocal(key) {
-    this.data[key] = this.storage.get(key);
-  }
-  async saveInLocal(key, val) {
-    this.storage.set(key, val);
   }
   async presentToast(toastMessage) {
     const toast = await this.toastController.create({
@@ -56,7 +52,7 @@ export class LoginPage implements OnInit {
         Global.loggedIn = true;
         Global.loggedInUser = this.user;
         this.presentToast('Welcome ' + Global.loggedInUser.name);
-        this.saveInLocal('loggedInUser', this.user);
+        this.storage.saveInLocal('loggedInUser', this.user);
         this.router.navigate(['']);
       }
       },

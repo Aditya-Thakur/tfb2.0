@@ -1,0 +1,59 @@
+<ion-card>
+  <ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <!-- <ion-badge *ngIf="(cartItem.product.productPriceBeforeDiscount - cartItem.product.productPrice) >= 0" color="danger">{{cartItem.product.productPriceBeforeDiscount | discount:cartItem.product.productPrice}}</ion-badge> -->
+          <ion-img width="80" height="80"
+            src="http://theflyingbasket.com/assets/productimages/{{cartItem.product.id}}/{{cartItem.product.productImage1}}"
+            (click)="showDetails(cartItem.product.id)"></ion-img>
+        </ion-col>
+        <ion-col>
+          <ion-grid>
+              <ion-row
+                *ngIf="cartItem.productVariety.id == 0  && cartItem.product.productPriceBeforeDiscount!=cartItem.product.productPrice"
+                class="ion-text-center">
+                <span class="productPrice" style="text-decoration: line-through;">Rs.
+                  {{cartItem.product.productPriceBeforeDiscount}}/-</span>
+              </ion-row>
+              <ion-row *ngIf="cartItem.productVariety.id != 0; else priceActual">
+                {{cartItem.productVariety.productQuantity}} {{cartItem.productVariety.quantityType}} - Rs.&nbsp;
+                {{cartItem.productVariety.productPrice}}
+              </ion-row>
+              <ng-template #priceActual>
+                <ion-row class="ion-text-center">
+                  Rs. {{cartItem.product.productPrice}}/-
+                </ion-row>
+              </ng-template>
+            <!-- <ion-row *ngIf="cartItem.quantity == 1; else inCart">
+              <ion-button color="danger" (click)="removeFromBasket()">Remove from &nbsp;<ion-icon name="basket">
+                </ion-icon>
+              </ion-button>
+            </ion-row> -->
+            <!-- <ng-template #inCart>
+              <ion-row>
+                <ion-button (click)="changeQuantity(-1)" color="warning">
+                  <ion-text color="dark">-</ion-text>
+                </ion-button>
+                <ion-text>
+                  {{cartItem.quantity}} in &nbsp;
+                  <ion-icon name="basket"></ion-icon>
+                </ion-text>
+                <ion-button (click)="changeQuantity(1)" color="secondary">
+                  <ion-text color="dark">+</ion-text>
+                </ion-button>
+              </ion-row>
+            </ng-template> -->
+            <ion-row>
+              Quantity - {{cartItem.quantity}}
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+  <ion-card-content (click)="showDetails(product.id)">
+    {{cartItem.product.productName}}
+  </ion-card-content>
+</ion-card>

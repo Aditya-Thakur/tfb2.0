@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { StorageServiceModule } from 'src/assets/angular-webstorage-service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    StorageServiceModule
   ],
   exports: [FormsModule, ReactiveFormsModule],
   providers: [
