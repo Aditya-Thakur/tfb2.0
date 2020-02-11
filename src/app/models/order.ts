@@ -12,4 +12,5 @@ export interface Order {
     shippingCity: string;
     shippingPincode: number;
     contactno: number;
+    orderStatus: string;
 }

@@ -8,6 +8,7 @@ import { Cart } from 'src/app/models/cart';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { CartItem } from 'src/app/models/cart-item';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-checkout',
@@ -59,10 +60,12 @@ export class CheckoutPage implements OnInit {
     shippingState: '',
     shippingCity: '',
     shippingPincode: 0,
-    contactno: 0
+    contactno: 0,
+    orderStatus: ''
   };
   constructor(public toastController: ToastController,
               private router: Router,
+              private storage: StorageService,
               private orderService: OrderService) {
     this.shippingForm = new FormGroup({
       shippingAddress: new FormControl('', [
@@ -133,6 +136,7 @@ export class CheckoutPage implements OnInit {
     console.log(orderMsg);
     const myCartItems: CartItem[] = [];
     this.globalVariable.myCart = new Cart(myCartItems);
+    this.storage.saveInLocal('myCart', this.globalVariable.myCart);
     this.presentToast(orderMsg);
     this.router.navigateByUrl(`/tabs/myProfile`);
   }

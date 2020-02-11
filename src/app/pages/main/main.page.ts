@@ -25,6 +25,9 @@ export class MainPage implements OnInit {
   async openShop2(id: number) {
     this.router.navigate(['tabs/products'], {queryParams : {pid: id}});
   }
+  async openShop3(id: number, id2: number) {
+    this.router.navigate(['tabs/products'], {queryParams : {subid1: id, subid2: id2}});
+  }
 
   openSearch() {
     this.router.navigateByUrl(`/tabs/search`);

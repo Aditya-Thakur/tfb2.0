@@ -10,102 +10,118 @@ import { map, catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
- // tslint:disable: no-string-literal
+// tslint:disable: no-string-literal
 export class ShoppingService {
 
   products: Product[];
   constructor(private http: HttpClient) { }
 
-  baseUrl: 'http://theflyingbasket.com/backend';
+  baseUrl: 'http://localhost/backend';
 
-    // Get all categories
-    async getAllCategories(): Promise<Category[]> {
-      try {
-        console.log('hi');
-        const response = await this.http.get(`http://theflyingbasket.com/backend/api/getCategories.php`).toPromise();
-        return response['categoryData'] as Category[];
-      } catch (error) {
-        await this.handleError(error);
-      }
+  // Get all categories
+  async getAllCategories(): Promise<Category[]> {
+    try {
+      console.log('hi');
+      const response = await this.http.get(`http://localhost/backend/api/getCategories.php`).toPromise();
+      return response['categoryData'] as Category[];
+    } catch (error) {
+      await this.handleError(error);
     }
+  }
 
-    // Get all subcategories for a category
-    async getAllSubcategories(categoryid): Promise<Subcategory[]> {
-      try {
-        const response = await this.http.post(
-          `http://theflyingbasket.com/backend/api/getSubcategoryByCategory.php`,
-           categoryid
-           )
-           .toPromise();
-        return response['subcategoryData'] as Subcategory[];
-      } catch (error) {
-        await this.handleError(error);
-      }
+  // Get all subcategories for a category
+  async getAllSubcategories(categoryid): Promise<Subcategory[]> {
+    try {
+      const response = await this.http.post(
+        `http://localhost/backend/api/getSubcategoryByCategory.php`,
+        categoryid
+      )
+        .toPromise();
+      return response['subcategoryData'] as Subcategory[];
+    } catch (error) {
+      await this.handleError(error);
     }
+  }
 
-    // Get subcategory by id
-    async getSubcategoryByID(subcategoryid): Promise<Subcategory> {
-      try {
-        const response = await this.http.post(
-          `http://theflyingbasket.com/backend/api/getSubcategoryNameById.php`,
-           subcategoryid
-           )
-           .toPromise();
-        console.log('*********' + JSON.stringify(response['subData']));
-        return response['subData'] as Subcategory;
-      } catch (error) {
-        await this.handleError(error);
-      }
+  // Get subcategory by id
+  async getSubcategoryByID(subcategoryid): Promise<Subcategory> {
+    try {
+      const response = await this.http.post(
+        `http://localhost/backend/api/getSubcategoryNameById.php`,
+        subcategoryid
+      )
+        .toPromise();
+      console.log('*********' + JSON.stringify(response['subData']));
+      return response['subData'] as Subcategory;
+    } catch (error) {
+      await this.handleError(error);
     }
+  }
 
-     // Get all product details for menu page
+  // Get all product details for menu page
   async getProductsByCategoryId(categoryId: number): Promise<Product[]> {
     try {
       const response = await
-      this.http.post(`http://theflyingbasket.com/backend/api/getAllProductsOfCategory.php`, categoryId).toPromise();
+        this.http.post(`http://localhost/backend/api/getAllProductsOfCategory.php`, categoryId).toPromise();
       this.products = response['productData'] as Product[];
       return this.products;
     } catch (error) {
       await this.handleError(error);
     }
   }
-    // Get all product details for menu page
-    async getProductsBySubcategoryId(subcategoryId: number): Promise<Product[]> {
-      try {
-        const response = await this.http.post(
-          `http://theflyingbasket.com/backend/api/getAllProductsOfSubCategory.php`, subcategoryId).toPromise();
-        this.products = response['productData'] as Product[];
-        return this.products;
-      } catch (error) {
-        await this.handleError(error);
-      }
+  // Get all product details for menu page
+  async getProductsBySubcategoryId(subcategoryId: number): Promise<Product[]> {
+    try {
+      const response = await this.http.post(
+        `http://localhost/backend/api/getAllProductsOfSubCategory.php`, subcategoryId).toPromise();
+      this.products = response['productData'] as Product[];
+      return this.products;
+    } catch (error) {
+      await this.handleError(error);
     }
+  }
 
-      // Get product for a search keyword
+  // Get all product details for menu page
+  async getProductsBySubcategoryId2(subcategoryId1: number, subcategoryId2: number): Promise<Product[]> {
+    try {
+      const jsonToSend = {
+        id1: subcategoryId1,
+        id2: subcategoryId2
+      };
+      const response = await this.http.post(
+        `http://localhost/backend/api/getAllProductsOfSubCategory2.php`, jsonToSend).toPromise();
+      this.products = response['productData'] as Product[];
+      return this.products;
+    } catch (error) {
+      await this.handleError(error);
+    }
+  }
+
+  // Get product for a search keyword
   async getProductsBySearch(keyword: string): Promise<Product[]> {
     try {
-      const response = await this.http.post(`http://theflyingbasket.com/backend/api/searchBarResponse.php`, keyword).toPromise();
+      const response = await this.http.post(`http://localhost/backend/api/searchBarResponse.php`, keyword).toPromise();
       this.products = response['productData'] as Product[];
       return this.products;
     } catch (error) {
       await this.handleError(error);
     }
   }
-// Get product details.
-async getProductByProductId(productId: number): Promise<Product> {
-  try {
-    const response = await this.http.post(`http://theflyingbasket.com/backend/api/getProductByProductId.php`, productId).toPromise();
-    return response['productData'] as Product;
-  } catch (error) {
-    await this.handleError(error);
+  // Get product details.
+  async getProductByProductId(productId: number): Promise<Product> {
+    try {
+      const response = await this.http.post(`http://localhost/backend/api/getProductByProductId.php`, productId).toPromise();
+      return response['productData'] as Product;
+    } catch (error) {
+      await this.handleError(error);
+    }
   }
-}
 
   // Get Product Variety details.
   async getProductVarietyByProductId(productId: number): Promise<ProductVariety[]> {
     try {
       const response = await
-      this.http.post(`http://theflyingbasket.com/backend/api/getProductVarietyByProductId.php`, productId).toPromise();
+        this.http.post(`http://localhost/backend/api/getProductVarietyByProductId.php`, productId).toPromise();
       return response['productVarietyData'] as ProductVariety[];
     } catch (error) {
       this.handleError(error);
@@ -115,7 +131,7 @@ async getProductByProductId(productId: number): Promise<Product> {
   // Get product for people also bought
   async peopleAlsoBought(category: number): Promise<Product[]> {
     try {
-      const response = await this.http.post(`http://theflyingbasket.com/backend/api/peopleAlsoBought.php`, category).toPromise();
+      const response = await this.http.post(`http://localhost/backend/api/peopleAlsoBought.php`, category).toPromise();
       this.products = response['productData'] as Product[];
       return this.products;
     } catch (error) {
@@ -123,7 +139,7 @@ async getProductByProductId(productId: number): Promise<Product> {
     }
   }
 
-    // Get product for a search keyword
+  // Get product for a search keyword
   //   getProductsBySearch2(keyword: string): Observable<Product[]> {
   //     if (keyword === '') { return null; }
   //     return this.http.post(`${this.baseUrl}/api/searchBarResponse.php`, keyword).pipe(
@@ -133,9 +149,9 @@ async getProductByProductId(productId: number): Promise<Product> {
   //      catchError(this.handleError));\
   //  }
 
-    private handleError(error: HttpErrorResponse) {
-      console.log(error);
-      // return an observable with a user friendly message
-      return throwError('Error! something went wrong.');
-    }
+  private handleError(error: HttpErrorResponse) {
+    console.log(error);
+    // return an observable with a user friendly message
+    return throwError('Error! something went wrong.');
+  }
 }

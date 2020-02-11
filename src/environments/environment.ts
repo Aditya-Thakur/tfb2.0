@@ -14,3 +14,13 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyCvBrenqGhcIEsgQL1ngG8O6b4LQpN5l1s',
+  authDomain: 'the-flying-basket.firebaseapp.com',
+  databaseURL: 'https://the-flying-basket.firebaseio.com',
+  projectId: 'the-flying-basket',
+  storageBucket: 'the-flying-basket.appspot.com',
+  messagingSenderId: '879113238185',
+  appId: '1:879113238185:web:1723989a9f4841d3'
+};

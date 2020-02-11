@@ -13,7 +13,7 @@ export class OrderService {
   async placeOrder(order: Order) {
     try {
       console.log(order);
-      const response = await this.http.post(`http://theflyingbasket.com/backend/api/placeOrder2.php`, order).toPromise();
+      const response = await this.http.post(`http://localhost/backend/api/placeOrder2.php`, order).toPromise();
       // tslint:disable-next-line: no-string-literal
       return response['orderData'].message as string;
     } catch (error) {
@@ -25,7 +25,7 @@ export class OrderService {
     async getOrderByUserId(userId: number): Promise<Order[]> {
       try {
         // const response = await this.http.post(`http://localhost/backend/api/getOrderByUserId2.php`, userId).toPromise();
-        const response = await this.http.post(`http://theflyingbasket.com/backend/api/getOrderByUserId2.php`, userId).toPromise();
+        const response = await this.http.post(`http://localhost/backend/api/getOrderByUserId2.php`, userId).toPromise();
         // tslint:disable-next-line: no-string-literal
         return response['orderData'] as Order[];
       } catch (error) {

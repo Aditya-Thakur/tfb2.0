@@ -5,6 +5,7 @@ import { Global } from 'src/app/global';
 import { from } from 'rxjs';
 import { Router } from '@angular/router';
 import { CartItem } from 'src/app/models/cart-item';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-cart',
@@ -22,7 +23,7 @@ export class CartPage implements OnInit {
     totalCartPrice: 0,
     getTotalDiscountPrice: () => 0
   };
-  constructor(private cart: CartService, private router: Router) { }
+  constructor( private storage: StorageService, private router: Router) { }
 
   ngOnInit() {
     this.myCart = this.globalVariable.myCart;
@@ -35,6 +36,7 @@ export class CartPage implements OnInit {
   clearCart() {
     const myCartItems: CartItem[] = [];
     this.globalVariable.myCart = new Cart(myCartItems);
+    this.storage.saveInLocal('myCart', this.globalVariable.myCart);
   }
 
 }

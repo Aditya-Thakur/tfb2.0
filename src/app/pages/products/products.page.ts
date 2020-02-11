@@ -14,6 +14,8 @@ export class ProductsPage implements OnInit {
 
   pid: number;
   subid: number;
+  subid1: number;
+  subid2: number;
   pSearch: string;
   products: Product[];
   error; imgsrc; altText = '';
@@ -32,11 +34,15 @@ export class ProductsPage implements OnInit {
       this.pid = Number(queryParams['pid']);
       this.pSearch = queryParams['pSearch'];
       this.subid = queryParams['subid'];
+      this.subid1 = queryParams['subid1'];
+      this.subid2 = queryParams['subid2'];
       this.products = [];
       if (this.pid) {
         this.products = await this.shoppingService.getProductsByCategoryId(this.pid);
       } else if (this.pSearch) {
         this.products = await this.shoppingService.getProductsBySearch(this.pSearch);
+      } else if (this.subid1 && this.subid2) {
+        this.products = await this.shoppingService.getProductsBySubcategoryId2(this.subid1, this.subid2);
       } else {
         this.products = await this.shoppingService.getProductsBySubcategoryId(this.subid);
       }
