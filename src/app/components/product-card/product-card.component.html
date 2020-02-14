@@ -5,7 +5,7 @@
         <ion-col>
           <ion-badge *ngIf="(product.productPriceBeforeDiscount - product.productPrice) >= 0" color="danger">{{product.productPriceBeforeDiscount | discount:product.productPrice}}</ion-badge>
           <ion-img width="80" height="80"
-            src="http://theflyingbasket.com/assets/productimages/{{product.id}}/{{product.productImage1}}"
+            src="https://theflyingbasket.com/assets/productimages/{{product.id}}/{{product.productImage1}}"
             (click)="showDetails(product.id)"></ion-img>
         </ion-col>
         <ion-col>
@@ -18,7 +18,7 @@
             </ion-row>
             <ion-row *ngIf="productVarieties.length != 0; else priceActual">
               <form (ngSubmit)="quantityForm()">
-                <ion-select name="choosedProductVariety" [(ngModel)]="choosedProductVariety" okText="Okay" cancelText="Cancel">
+                <ion-select class="custom-select" style="width:200px;" name="choosedProductVariety" [(ngModel)]="choosedProductVariety" okText="Okay" cancelText="Cancel" placeholder="change">
                   <ion-select-option *ngFor="let productVariety of productVarieties;"  value="{{productVariety.id}}" [selected]="productVariety.id == productVarieties[0].id">
                     {{productVariety.productQuantity}} {{productVariety.quantityType}} - Rs. {{productVariety.productPrice}}/-
                   </ion-select-option>

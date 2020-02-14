@@ -16,7 +16,7 @@ import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { StorageServiceModule } from 'src/assets/angular-webstorage-service';
-
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -29,11 +29,12 @@ import { StorageServiceModule } from 'src/assets/angular-webstorage-service';
     MaterialModule,
     ReactiveFormsModule,
     IonicStorageModule.forRoot(),
-    StorageServiceModule
+    StorageServiceModule,
   ],
   exports: [FormsModule, ReactiveFormsModule],
   providers: [
     StatusBar,
+    GooglePlus,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {

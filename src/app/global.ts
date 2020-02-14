@@ -80,6 +80,6 @@ export const Global = {
           getTotalDiscountPrice: () => 0
     }),
     cart : {},
-     backendUrl: 'http://localhost/backend',
+     backendUrl: 'https://theflyingbasket.com/backend/',
      availableLocation: [721645, 721657, 721635, 721602, 721606, 721607, 721654, 721452, 721628, 721603, 721658, 721631, 721604, 721607]
 };

@@ -6,6 +6,7 @@ import { from } from 'rxjs';
 import { Router } from '@angular/router';
 import { CartItem } from 'src/app/models/cart-item';
 import { StorageService } from 'src/app/services/storage.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-cart',
@@ -23,14 +24,26 @@ export class CartPage implements OnInit {
     totalCartPrice: 0,
     getTotalDiscountPrice: () => 0
   };
-  constructor( private storage: StorageService, private router: Router) { }
+  constructor( private storage: StorageService, public toastController: ToastController, private router: Router) { }
 
   ngOnInit() {
     this.myCart = this.globalVariable.myCart;
     console.log(this.myCart);
   }
+  async presentToast(toastMessage) {
+    const toast = await this.toastController.create({
+      message: toastMessage,
+      duration: 2000
+    });
+    toast.present();
+  }
   checkout() {
-    this.router.navigateByUrl(`/tabs/checkout`);
+    if (this.globalVariable.loggedIn) {
+      this.router.navigateByUrl(`/tabs/checkout`);
+    } else {
+      this.presentToast('Please login before checking out');
+      this.router.navigateByUrl(`/tabs/login`);
+    }
   }
 
   clearCart() {

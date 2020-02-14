@@ -74,7 +74,7 @@
         <tr *ngFor="let cartItem of globalVariable.myCart.myCartItems">
           <td>
             <img class="cart-image"
-              src="http://theflyingbasket.com/assets/productimages/{{cartItem.product.productId}}/{{cartItem.product.productImage1}}"
+              src="https://theflyingbasket.com/assets/productimages/{{cartItem.product.productId}}/{{cartItem.product.productImage1}}"
               alt="{{cartItem.product.productName}}" (click)="showDetails(cartItem.product.productId)" />
           </td>
           <td>{{cartItem.product.productName}}</td>

@@ -19,7 +19,7 @@ export class SearchService implements AutoCompleteService {
     let observable: Observable<any>;
 
     if (this.products.length === 0) {
-      observable = this.http.get('http://localhost/backend/api/searchAll.php');
+      observable = this.http.get('https://theflyingbasket.com/backend/api/searchAll.php');
     } else {
       observable = of(this.products);
     }

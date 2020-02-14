@@ -23,7 +23,7 @@ export class LoginService {
    // Get user information
    login(user): Observable<User> {
     user.ip = this.publicIp.ip;
-    return this.http.post(`http://localhost/backend/api/login.php`, user).pipe(
+    return this.http.post(`https://theflyingbasket.com/backend/api/login.php`, user).pipe(
       map((res) => {
         // tslint:disable-next-line: no-string-literal
         this.user = res['userData'];
@@ -35,7 +35,7 @@ export class LoginService {
   // Register new user
   signup(user: User): Observable<User> {
     user.ip = this.publicIp.ip;
-    return this.http.post(`http://localhost/backend/api/signup.php`, user).pipe(
+    return this.http.post(`https://theflyingbasket.com/backend/api/signup.php`, user).pipe(
       map((res) => {
         // tslint:disable-next-line: no-string-literal
         this.user = res['userData'];
@@ -46,7 +46,7 @@ export class LoginService {
 
   updateAddress(user: User) {
     // user.id = Global.loggedInUser.id;
-    return this.http.post(`http://localhost/backend/api/updateAddress.php`, user).pipe(
+    return this.http.post(`https://theflyingbasket.com/backend/api/updateAddress.php`, user).pipe(
       map((res) => {
         // tslint:disable-next-line: no-string-literal
         this.user = res['userData'];
@@ -57,7 +57,7 @@ export class LoginService {
 
   updateProfile(user: User) {
     // user.id = Global.loggedInUser.id;
-    return this.http.post(`http://localhost/backend/api/updateProfile.php`, user).pipe(
+    return this.http.post(`https://theflyingbasket.com/backend/api/updateProfile.php`, user).pipe(
       map((res) => {
         // tslint:disable-next-line: no-string-literal
         this.user = res['userData'];

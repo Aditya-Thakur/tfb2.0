@@ -8,7 +8,7 @@ import { Global } from 'src/app/global';
 import { ToastController } from '@ionic/angular';
 // import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { StorageService } from 'src/app/services/storage.service';
-
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -18,6 +18,7 @@ export class LoginPage implements OnInit {
 
   loginForm; user; data; error;
   constructor(private router: Router,
+              private googlePlus: GooglePlus,
               public toastController: ToastController,
               private loginService: LoginService,
               private storage: StorageService
@@ -60,6 +61,11 @@ export class LoginPage implements OnInit {
         this.error = err;
       }
     );
+  }
+  googleLogin() {
+    this.googlePlus.login({})
+  .then(res => console.log(res))
+  .catch(err => console.error(err));
   }
 
   ngOnInit() {
