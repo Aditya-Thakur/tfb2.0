@@ -13,4 +13,5 @@ export interface Order {
     shippingPincode: number;
     contactno: number;
     orderStatus: string;
+    totalCartPrice: number;
 }

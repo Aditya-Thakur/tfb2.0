@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { Global } from 'src/app/global';
 import { StorageService } from 'src/app/services/storage.service';
+import { Cart } from 'src/app/models/cart';
+import { CartItem } from 'src/app/models/cart-item';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-tabs',
@@ -55,8 +58,41 @@ export class TabsPage implements OnInit {
     this.router.navigateByUrl(`/tabs/` + pageName);
     this.menu.toggle();
   }
+  openPage2(pageName) {
+    this.router.navigateByUrl(`/tabs/` + pageName);
+    // this.menu.toggle();
+  }
   logout() {
+    const loggedOutUser = {
+      id: 0,
+      name: '',
+      email: '',
+      contactno: 0,
+      password: '',
+      shippingAddress: '',
+      landMark: '',
+      shippingState: '',
+      shippingCity: '',
+      shippingPincode: 0,
+      billingAddress: '',
+      billingState: '',
+      billingCity: '',
+      billingPincode: 0,
+      regDate: '',
+      updationDate: '',
+      ip: '',
+      message: ''
+    };
+    const lostCart = new Cart({
+      myCartItems: new Array<CartItem>(),
+      getTotalCartPrice: () => 0,
+      getQuantity: (product: Product) => 0,
+      getTotalItemCount: () => 0,
+      getTotalDiscountPrice: () => 0
+    });
     this.globalVariable.loggedIn = false;
+    this.globalVariable.loggedInUser = loggedOutUser;
+    this.globalVariable.myCart = lostCart;
     this.storage.clearAll();
   }
 

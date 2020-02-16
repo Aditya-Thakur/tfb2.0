@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { CartItem } from 'src/app/models/cart-item';
 import { StorageService } from 'src/app/services/storage.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-checkout',
@@ -23,29 +24,29 @@ export class CheckoutPage implements OnInit {
     cart: new Cart({
       myCartItems: [{
         product: {
-                  id: '',
-                  category: '',
-                  subcategory: '',
-                  productName: '',
-                  productCompany: '',
-                  productPrice: '',
-                  productPriceBeforeDiscount: '',
-                  productDescription: '',
-                  productImage1: '',
-                  productImage2: '',
-                  productImage3: '',
-                  shippingCharge: '',
-                  productAvailability: '',
-                  postingDate: new Date(),
-                  updationDate: new Date()
+          id: '',
+          category: '',
+          subcategory: '',
+          productName: '',
+          productCompany: '',
+          productPrice: '',
+          productPriceBeforeDiscount: '',
+          productDescription: '',
+          productImage1: '',
+          productImage2: '',
+          productImage3: '',
+          shippingCharge: '',
+          productAvailability: '',
+          postingDate: new Date(),
+          updationDate: new Date()
         },
         productVariety: {
-                id: '',
-                productId: '',
-                quantityType: '',
-                productQuantity: '',
-                productPrice: ''
-                },
+          id: '',
+          productId: '',
+          quantityType: '',
+          productQuantity: '',
+          productPrice: ''
+        },
         quantity: 0
       }],
       getTotalCartPrice: () => 0,
@@ -61,12 +62,15 @@ export class CheckoutPage implements OnInit {
     shippingCity: '',
     shippingPincode: 0,
     contactno: 0,
-    orderStatus: ''
+    orderStatus: '',
+    totalCartPrice: 0
   };
-  constructor(public toastController: ToastController,
-              private router: Router,
-              private storage: StorageService,
-              private orderService: OrderService) {
+  constructor(
+    public toastController: ToastController,
+    private router: Router,
+    private storage: StorageService,
+    private cartService: CartService,
+    private orderService: OrderService) {
     this.shippingForm = new FormGroup({
       shippingAddress: new FormControl('', [
         Validators.required
@@ -101,7 +105,7 @@ export class CheckoutPage implements OnInit {
   }
 
   logForm() {
-    console.log(this.globalVariable.loggedInUser);
+    // console.log(this.globalVariable.loggedInUser);
     if (this.globalVariable.loggedInUser.name === '') {
       this.presentToast('Name can not be empty :(');
     } else if (this.globalVariable.loggedInUser.shippingAddress === '') {
@@ -115,8 +119,8 @@ export class CheckoutPage implements OnInit {
     } else if (!(this.globalVariable.availableLocation.includes(this.globalVariable.loggedInUser.shippingPincode))) {
       this.presentToast('Sorry we do not serve on this location yet. :(');
     } else {
-      console.log('lets order!' + JSON.stringify(this.globalVariable.myCart, null, 2)
-        + ' ********************************' + JSON.stringify(this.shippingForm.value, null, 2));
+      // console.log('lets order!' + JSON.stringify(this.globalVariable.myCart, null, 2)
+      // + ' ********************************' + JSON.stringify(this.shippingForm.value, null, 2));
       this.placeOrder();
     }
   }
@@ -132,12 +136,13 @@ export class CheckoutPage implements OnInit {
     this.order.shippingCity = this.globalVariable.loggedInUser.shippingCity;
     this.order.shippingPincode = this.globalVariable.loggedInUser.shippingPincode;
     this.order.shippingState = this.globalVariable.loggedInUser.shippingState;
-    const orderMsg: string = await this.orderService.placeOrder(this.order);
-    console.log(orderMsg);
-    const myCartItems: CartItem[] = [];
-    this.globalVariable.myCart = new Cart(myCartItems);
-    this.storage.saveInLocal('myCart', this.globalVariable.myCart);
-    this.presentToast(orderMsg);
-    this.router.navigateByUrl(`/tabs/myProfile`);
+    this.orderService.placeOrder(this.order).subscribe(
+      (res) => {
+        this.cartService.clearCart();
+        // tslint:disable-next-line: no-string-literal
+        this.presentToast(res['orderMsg']);
+        this.router.navigateByUrl(`/tabs/myProfile`);
+      });
+    // console.log(orderMsg);
   }
 }

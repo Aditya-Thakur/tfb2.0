@@ -5,56 +5,6 @@
 </ion-header>
 
 <ion-content>
-  <!-- <ion-grid>
-        <ion-row>
-            <ion-slides pager="true" [options]="slideOpts">
-                <ion-slide>
-                  <img src="https://theflyingbasket.com/assets/productimages/{{product.id}}/{{product.productImage1}}" alt="First slide">
-                </ion-slide>
-                <ion-slide>
-                  <img src="https://theflyingbasket.com/assets/productimages/{{product.id}}/{{product.productImage2}}" alt="Second slide">
-                </ion-slide>
-                <ion-slide>
-                  <img src="https://theflyingbasket.com/assets/productimages/{{product.id}}/{{product.productImage3}}" alt="Third slide">
-                </ion-slide>
-              </ion-slides>
-        </ion-row>
-        <ion-row class="ion-text-center">
-            <span class="productPrice" style="text-decoration: line-through;">Rs.
-              {{product.productPriceBeforeDiscount}}</span>
-          </ion-row>
-          <ion-row *ngIf="productVarieties.length != 0; else priceActual">
-            <mat-label style="padding-top: 2px;">Choose Quantity</mat-label>
-            <mat-form-field>
-            <mat-label>Choose Quantity</mat-label> 
-              <select matNativeControl required>
-                <option *ngFor="let productVariety of productVarieties" value="productVariety.id">
-                  {{productVariety.productQuantity}} {{productVariety.quantityType}} - Rs. {{productVariety.productPrice}}/-
-                </option>
-              </select>
-            </mat-form-field>
-          </ion-row>
-          <ng-template #priceActual>
-            <ion-row class="ion-text-center">
-              Rs. {{product.productPrice}}/-
-            </ion-row>
-          </ng-template>
-          <ion-row *ngIf="globalVariable.myCart.getQuantity(product) == 0; else inCart">
-            <ion-button (click)="addToBasket()">Add to basket <ion-icon name="basket"></ion-icon>
-            </ion-button>
-          </ion-row>
-          <ng-template #inCart>
-            <ion-row>
-              <ion-button (click)="changeQuantity(-1)" color="warning"><ion-text color="dark">-</ion-text></ion-button>
-              <ion-text>{{globalVariable.myCart.getQuantity(product)}} in &nbsp;<ion-icon name="basket"></ion-icon></ion-text>
-              <ion-button (click)="changeQuantity(1)" color="secondary"><ion-text color="dark">+</ion-text></ion-button>
-            </ion-row>
-          </ng-template>
-            <ion-row>
-                <b>Description:</b>
-                <div [innerHTML]="product.productDescription"></div>
-            </ion-row>
-      </ion-grid> -->
 
   <ion-card>
     <ion-item>
@@ -80,17 +30,6 @@
     </ion-item>
 
     <ion-item class="activated">
-      <!-- <ion-row *ngIf="productVarieties.length != 0; else priceActual">
-            <mat-label style="padding-top: 2px;">Choose Quantity</mat-label>
-            <mat-form-field>
-              <mat-label>Choose Quantity</mat-label>
-              <select matNativeControl required>
-                <option *ngFor="let productVariety of productVarieties" value="productVariety.id">
-                  {{productVariety.productQuantity}} {{productVariety.quantityType}} - Rs. {{productVariety.productPrice}}/-
-                </option>
-              </select>
-            </mat-form-field>
-          </ion-row> -->
       <ion-grid>
         <ion-row *ngIf="productVarieties.length != 0; else priceActual">
           <form (ngSubmit)="quantityForm()">
@@ -137,7 +76,7 @@
         <div [innerHTML]="product.productDescription"></div>
       </ion-row>
     </ion-item>
-    <ion-item>
+    <!-- <ion-item>
       <ion-title>People also bought:</ion-title>
     </ion-item>
     <ion-item>
@@ -149,7 +88,7 @@
           </div>
         </ng-container>
       </div>
-    </ion-item>
+    </ion-item> -->
   </ion-card>
 
 </ion-content>

@@ -42,6 +42,10 @@ export class AppComponent implements OnInit {
     toast.present();
   }
   async ngOnInit() {
+    if (window.innerWidth > 768) {
+      window.open('https://d.theflyingbasket.com/', '_self');
+    }
+
     this.globalVariable.loggedInUser.id = 0;
     this.data['loggedInUser'] = await this.storage.getFromLocal('loggedInUser');
     this.data['myCart'] = await this.storage.getFromLocal('myCart');

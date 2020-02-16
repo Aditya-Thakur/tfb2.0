@@ -7,16 +7,31 @@
 <ion-content>
   <ion-header>
     <ion-button expand="full" color="secondary">Your Orders:</ion-button>
-</ion-header>
+  </ion-header>
 
-<ion-grid>
-  <ion-grid *ngFor = "let order of myOrders">
-    <ion-row *ngFor="let cartItem of order.cart.myCartItems">
+  <ion-grid>
+    <ion-grid *ngFor="let order of myOrders">
+      <ion-card style="color:red; background-color: yellow;">
+        <ion-item>Order Details: INV000{{order.id}}</ion-item>
+        <ion-item>Order Date & Time - {{order.orderDate}}</ion-item>
+        <ion-item>Order Status - {{order.orderStatus}}</ion-item>
+        <ion-item>Payment Method - {{order.paymentMethod}}</ion-item>
+        <ion-item>Address - {{order.shippingAddress}}, {{order.shippingCity}}, {{order.shippingPincode}},
+          {{order.shippingState}}, Landmark - {{order.landMark}}</ion-item>
+        <ion-item>Contact No. - {{order.contactno}}</ion-item>
+        <ion-item>Total price - Rs.{{order.totalCartPrice}}/-</ion-item>
+        <!-- <ion-item><ion-button (click)="printBill()">Print Bill</ion-button></ion-item> -->
+      </ion-card>
+      <ion-row>Here's the list of item: </ion-row>
+      <ion-row *ngFor="let cartItem of order.cart.myCartItems">
         <app-ordered-item [cartItem]="cartItem">
-          </app-ordered-item>
-    </ion-row>
-    <ion-button expand="full" color="primary">Older Orders:</ion-button>
+        </app-ordered-item>
+      </ion-row>
+      <ion-button expand="full" color="primary">Older Orders:</ion-button>
+    </ion-grid>
   </ion-grid>
-</ion-grid>
+  <p class="ion-padding-start ion-padding-end">
+    <ion-item (click)="scrollToTop()" expand="block" fill="outline">Why is there nothing here! (-.-)</ion-item>
+  </p>
 
 </ion-content>

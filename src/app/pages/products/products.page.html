@@ -10,7 +10,11 @@
         <ion-img width="80" height="80"
             src="{{imgsrc}}" alt="{{altText}}"></ion-img>
       </ion-row>
-        <ion-row *ngFor="let product of products">
+        <ion-row *ngFor="let product of products;let i = index">
+          <ion-item *ngIf="i !=0 && products[i].subCategory!=products[i-1].subCategory">
+            <ion-img width="80" height="80"
+            src="../assets/subpic/{{products[i].subCategory}}.png"></ion-img>
+          </ion-item>
             <app-product-card [product]="product">
               </app-product-card>
         </ion-row>

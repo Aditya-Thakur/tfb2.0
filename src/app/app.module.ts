@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-
+import { NgOtpInputModule } from 'ng-otp-input';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -22,6 +22,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
   entryComponents: [],
   imports: [BrowserModule,
     HttpClientModule,
+    NgOtpInputModule,
     FormsModule,
     IonicModule.forRoot(),
     AppRoutingModule,

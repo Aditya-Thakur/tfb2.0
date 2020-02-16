@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
@@ -37,6 +37,7 @@ export class LoginPage implements OnInit {
       ])
     });
   }
+
   async presentToast(toastMessage) {
     const toast = await this.toastController.create({
       message: toastMessage,
@@ -55,6 +56,8 @@ export class LoginPage implements OnInit {
         this.presentToast('Welcome ' + Global.loggedInUser.name);
         this.storage.saveInLocal('loggedInUser', this.user);
         this.router.navigate(['']);
+      } else {
+        this.presentToast(this.user.message);
       }
       },
       (err) => {
@@ -77,5 +80,8 @@ export class LoginPage implements OnInit {
   // }
   openRegister() {
     this.router.navigateByUrl(`/tabs/register`);
+  }
+  openUpdatePassword() {
+    this.router.navigateByUrl(`/tabs/update-password`);
   }
 }

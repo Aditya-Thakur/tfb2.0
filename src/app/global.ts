@@ -47,33 +47,6 @@ export const Global = {
     }],
     myCart: new Cart({
         myCartItems: new Array<CartItem>(),
-        // [{
-        //     product: {
-        //         id: '',
-        //         category: '',
-        //         subcategory: '',
-        //         productName: '',
-        //         productCompany: '',
-        //         productPrice: '',
-        //         productPriceBeforeDiscount: '',
-        //         productDescription: '',
-        //         productImage1: '',
-        //         productImage2: '',
-        //         productImage3: '',
-        //         shippingCharge: '',
-        //         productAvailability: '',
-        //         postingDate: new Date(),
-        //         updationDate: new Date()
-        //       },
-        //       productVariety: {
-        //         id: '',
-        //       productId: '',
-        //       quantityType: '',
-        //       productQuantity: '',
-        //       productPrice: ''
-        //       },
-        //       quantity: 0
-        //   }],
           getTotalCartPrice: () => 0,
           getQuantity: (product: Product) => 0,
           getTotalItemCount: () => 0,

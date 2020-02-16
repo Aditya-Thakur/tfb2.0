@@ -95,7 +95,7 @@ export class ProductCardComponent implements OnInit {
     if (this.choosedProductVariety === 0) {
       // toast message
       this.presentToast('Please choose quantity of item');
-      console.log('Please choose quantity for the item.');
+      // console.log('Please choose quantity for the item.');
     } else {
       this.cart.addToCart(this.cartItem);
     }
@@ -111,9 +111,13 @@ export class ProductCardComponent implements OnInit {
     // }
     this.cart.changeQuantity(this.cartItem.product.id, change);
   }
+  changeQuantityType(id) {
+    const index = this.globalVariable.myCart.myCartItems.findIndex((e) => e.product.id === id);
+    this.globalVariable.myCart.myCartItems.splice(index, 1);
+  }
 
   async showDetails(productId) {
-    console.log('************ showing details ************');
+    // console.log('************ showing details ************');
     await this.switchPage(productId);
     this.router.navigate(['/tabs/details'], { queryParams: { thisId: productId } });
     // this.router.navigate(['/tabs/details', {item: product}]);

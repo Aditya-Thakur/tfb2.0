@@ -15,6 +15,9 @@ export class Cart {
         totalPrice += element.productVariety.productPrice * element.quantity;
       });
     }
+    if (totalPrice !== 0 && totalPrice < 300) {
+      totalPrice += 20;
+    }
     this.totalCartPrice = totalPrice;
     return totalPrice;
   }

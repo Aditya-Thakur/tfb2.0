@@ -60,12 +60,16 @@
       </ion-list>
     </form>
   </div>
-  <div *ngIf="globalVariable.loggedInUser.id == 0" class="container justify-content-center text-center">
-    <img src="../../assets/images/please-login.png" (click)="openLogin()" routerLinkActive="active"
-      class="productImage">
-    <p>
+  <ion-card *ngIf="globalVariable.loggedInUser.id == 0" class="container justify-content-center text-center">
+    <ion-item>
+      <ion-img src="../../assets/images/please-login.png" (click)="openLogin()" routerLinkActive="active"
+      class="productImage"></ion-img>
+    </ion-item>
+    <ion-item><p>
       Please login before viewing this page!
-    </p>
-    <button class="btn btn-primary" (click)="openLogin()" routerLinkActive="active">Login/Signup</button>
-  </div>
+    </p></ion-item>
+    <ion-item>
+      <ion-button class="btn btn-primary" (click)="openLogin()" routerLinkActive="active">Login/Signup</ion-button>
+    </ion-item>
+  </ion-card>
 </ion-content>

@@ -12,7 +12,7 @@ export class CartService {
   public data: any = [];
   globalVariable = Global;
 
-  public myCartItems: CartItem[] = [];
+  private myCartItems: CartItem[] = [];
 
   constructor(private storage: StorageService) { }
 
@@ -23,6 +23,17 @@ export class CartService {
       this.storage.saveInLocal('myCart', this.globalVariable.myCart);
       this.data['myCart'] = this.storage.getFromLocal('myCart');
       console.log(this.data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async clearCart() {
+    try {
+      const myCartItems2: CartItem[] = [];
+      this.myCartItems = myCartItems2;
+      this.globalVariable.myCart = new Cart(this.myCartItems);
+      this.storage.saveInLocal('myCart', this.globalVariable.myCart);
     } catch (e) {
       console.log(e);
     }

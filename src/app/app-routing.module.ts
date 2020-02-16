@@ -49,6 +49,10 @@ const routes: Routes = [
   {
     path: 'details',
     loadChildren: () => import('./pages/product-details/product-details.module').then( m => m.ProductDetailsPageModule)
+  },
+  {
+    path: 'update-password',
+    loadChildren: () => import('./pages/shared/update-password/update-password.module').then( m => m.UpdatePasswordPageModule)
   }
 ];
 

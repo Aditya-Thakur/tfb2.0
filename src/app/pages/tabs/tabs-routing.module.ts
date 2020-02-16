@@ -81,6 +81,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'update-password',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../shared/update-password/update-password.module').then(m => m.UpdatePasswordPageModule)
+          }
+        ]
+      },
+      {
         path: 'aboutUs',
         children: [
           {

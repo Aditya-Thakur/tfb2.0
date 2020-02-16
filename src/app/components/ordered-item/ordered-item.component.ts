@@ -13,6 +13,7 @@ export class OrderedItemComponent implements OnInit {
   globalVariable = Global;
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
 }

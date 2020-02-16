@@ -32,6 +32,28 @@ export class LoginService {
       catchError(this.handleError));
   }
 
+     // Get user information
+     sendOTP(user) {
+      return this.http.post(`https://theflyingbasket.com/backend/api/sendOTP.php`, user).pipe(
+        map((res) => {
+          // tslint:disable-next-line: no-string-literal
+          const response = res['userData'];
+          return response;
+        }),
+        catchError(this.handleError));
+    }
+
+       // Get user information
+       updatePassword(user) {
+        return this.http.post(`https://theflyingbasket.com/backend/api/loginUsingOtp.php`, user).pipe(
+          map((res) => {
+            // tslint:disable-next-line: no-string-literal
+            const response = res['userData'];
+            return response;
+          }),
+          catchError(this.handleError));
+      }
+
   // Register new user
   signup(user: User): Observable<User> {
     user.ip = this.publicIp.ip;

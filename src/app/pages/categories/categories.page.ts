@@ -31,15 +31,15 @@ export class CategoriesPage implements OnInit {
       });
       this.categoryDict.set(element.categoryName, subcategoriesTemp);
     });
-    console.log(this.categoryDict);
+    // console.log(this.categoryDict);
     loading.dismiss();
   }
 
   async getAllCategories() {
     this.Categories = null;
-    console.log('here');
+    // console.log('here');
     this.Categories = await this.shoppingService.getAllCategories();
-    console.log(this.Categories);
+    // console.log(this.Categories);
   }
 
   async presentLoading() {
@@ -51,7 +51,7 @@ export class CategoriesPage implements OnInit {
 
     const { role, data } = await loading.onDidDismiss();
 
-    console.log('Loading dismissed!');
+    // console.log('Loading dismissed!');
   }
 
   getProducts(id) {

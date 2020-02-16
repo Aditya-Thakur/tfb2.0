@@ -115,7 +115,7 @@ export class ProductDetailsPage implements OnInit {
       // tslint:disable: no-string-literal
       this.pId = Number(queryParams['thisId']);
       this.product = await this.shoppingService.getProductByProductId(this.pId);
-      console.log(this.product);
+      // console.log(this.product);
       await this.getProductVariety();
       await this.peopleAlsoBought();
     });
