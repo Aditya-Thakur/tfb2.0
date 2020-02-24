@@ -77,6 +77,9 @@ export class ProductCardComponent implements OnInit {
     });
     toast.present();
   }
+  outOfStock() {
+    this.presentToast('This item is currently unavailable :(');
+  }
 
   addToBasket() {
     if (this.productVarieties.length !== 0 || this.choosedProductVariety === null || this.choosedProductVariety === undefined) {
@@ -109,7 +112,7 @@ export class ProductCardComponent implements OnInit {
     // if (this.productVarieties != null) {
     //   this.choosedProductVariety = this.quantityForm.value.quantity;
     // }
-    this.cart.changeQuantity(this.cartItem.product.id, change);
+    this.cart.changeQuantity(this.product.id, this.quantityDict.get(this.choosedProductVariety).id, change);
   }
   changeQuantityType(id) {
     const index = this.globalVariable.myCart.myCartItems.findIndex((e) => e.product.id === id);

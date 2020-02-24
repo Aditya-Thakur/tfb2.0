@@ -18,6 +18,10 @@ export class CartPage implements OnInit {
                private router: Router) { }
 
   ngOnInit() {
+    if (this.globalVariable.myCart.getTotalCartPrice() === 0) {
+      this.presentToast('Let\'s add few item to cart first (-.-)');
+      this.router.navigate(['']);
+    }
   }
   async presentToast(toastMessage) {
     const toast = await this.toastController.create({

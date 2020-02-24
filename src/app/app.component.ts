@@ -54,8 +54,9 @@ export class AppComponent implements OnInit {
       this.globalVariable.loggedIn = true;
       this.presentToast('Welcome back ' + Global.loggedInUser.name);
     }
-    if (this.data['myCart']['myCartItems'][0]['product']['id'] !== 0) {
+    if (this.data['myCart']['myCartItems'].length > 0) {
       // this.globalVariable.myCart = this.data['myCart'];
+      console.log('trrrruuuuuuuueeeeeeeee');
       this.globalVariable.myCart = new Cart(this.data['myCart']['myCartItems']);
     }
   }

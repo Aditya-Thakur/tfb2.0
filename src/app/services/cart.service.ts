@@ -39,18 +39,17 @@ export class CartService {
     }
   }
 
-  async changeQuantity(cartItemProductId: number, change: number) {
+  async changeQuantity(cartItemProductId: number, cartItemProductVarietyId: number, change: number) {
     try {
-      const index = this.globalVariable.myCart.myCartItems.findIndex(e => e.product.id === cartItemProductId);
+      const index = this.globalVariable.myCart.myCartItems.findIndex(e =>
+        (e.product.id === cartItemProductId) && (e.productVariety.id === cartItemProductVarietyId));
       this.globalVariable.myCart.myCartItems[index].quantity += change;
-      // this.saveInLocal('myCart', this.globalVariable.myCart);
       const quantity = this.globalVariable.myCart.myCartItems[index].quantity;
-      console.log('in removeFrom CArt with quantity ' + quantity + 'for '
-      + this.globalVariable.myCart.myCartItems[index].product.productName);
       if (quantity === 0) {
         this.globalVariable.myCart.myCartItems.splice(index, 1);
-        console.log('removed ' + JSON.stringify(cartItemProductId));
       }
+      const myCartItems2 = this.globalVariable.myCart.myCartItems;
+      this.globalVariable.myCart = new Cart(myCartItems2);
       this.storage.saveInLocal('myCart', this.globalVariable.myCart);
     } catch (e) {
       console.log(e);
@@ -62,10 +61,8 @@ export class CartService {
     const index = this.globalVariable.myCart.myCartItems.findIndex((e) => e.product.id === cartItem.product.id);
     this.globalVariable.myCart[index].quantity -= 1;
     const quantity = this.globalVariable.myCart[index].quantity;
-    console.log('in removeFrom CArt with quantity ' + quantity + 'for ' + cartItem.product.productName);
     if (quantity === 0) {
       this.globalVariable.myCart.myCartItems.splice(index, 1);
-      console.log('removed ' + JSON.stringify(cartItem));
     }
     this.storage.saveInLocal('myCart', this.globalVariable.myCart);
   }

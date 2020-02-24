@@ -1,9 +1,11 @@
 import { Product } from './product';
 import { CartItem } from './cart-item';
+import { ProductVariety } from './product-variety';
 
 export class Cart {
-    myCartItems: CartItem[] = [];
-    totalCartPrice = 0;
+  myCartItems: CartItem[] = [];
+  totalCartPrice = 0;
+  totalCartPriceWithoutShippingCharge = 0;
   constructor(myCartItemList) {
     this.myCartItems = myCartItemList;
   }
@@ -15,16 +17,33 @@ export class Cart {
         totalPrice += element.productVariety.productPrice * element.quantity;
       });
     }
-    if (totalPrice !== 0 && totalPrice < 300) {
+    if (totalPrice !== 0 && totalPrice < 299) {
       totalPrice += 20;
+      this.totalCartPrice = totalPrice;
+      return this.totalCartPrice;
+    } else {
+      this.totalCartPrice = totalPrice;
+      return this.totalCartPrice;
     }
-    this.totalCartPrice = totalPrice;
-    return totalPrice;
+  }
+  getTotalCartPriceWithoutShippingCharge(): number {
+    let totalPrice = 0;
+    if (this.myCartItems.length > 0) {
+      this.myCartItems.forEach(element => {
+        totalPrice += element.productVariety.productPrice * element.quantity;
+      });
+    }
+    this.totalCartPriceWithoutShippingCharge = totalPrice;
+    return this.totalCartPriceWithoutShippingCharge;
+
   }
 
-  getQuantity(product: Product): number {
+  getQuantity(product: Product, productVariety: ProductVariety): number {
     if (this.myCartItems.length > 0) {
-      const index = this.myCartItems.findIndex((e) => e.product.id === product.id);
+      if (productVariety === null || productVariety === undefined) {
+        return null;
+      }
+      const index = this.myCartItems.findIndex((e) => (e.product.id === product.id) && (e.productVariety.id === productVariety.id));
       if (index === -1) {
         return 0;
       } else {

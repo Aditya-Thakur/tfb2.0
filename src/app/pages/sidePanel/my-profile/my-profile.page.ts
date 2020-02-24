@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Global } from 'src/app/global';
 import { ToastController } from '@ionic/angular';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -11,7 +12,9 @@ import { ToastController } from '@ionic/angular';
 export class MyProfilePage implements OnInit {
 
   globalVariable = Global;
-  constructor(private router: Router, public toastController: ToastController) { }
+  constructor(private router: Router,
+              private loginService: LoginService,
+              public toastController: ToastController) { }
 
   ngOnInit() {
     if (this.globalVariable.loggedIn) {
@@ -34,6 +37,14 @@ export class MyProfilePage implements OnInit {
 
   myOrders() {
     this.router.navigateByUrl(`/tabs/myOrders`);
+  }
+
+  logForm() {
+    this.loginService.updateProfile(this.globalVariable.loggedInUser).subscribe(
+      res => {
+        console.log(res);
+        this.presentToast('Details updated successfully');
+      });
   }
 
 }

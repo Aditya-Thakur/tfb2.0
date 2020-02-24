@@ -116,7 +116,7 @@ export class CheckoutPage implements OnInit {
       this.presentToast('City can not be empty :(');
     } else if (this.globalVariable.loggedInUser.shippingState === '') {
       this.presentToast('State can not be empty :(');
-    } else if (!(this.globalVariable.availableLocation.includes(this.globalVariable.loggedInUser.shippingPincode))) {
+    } else if (!(this.globalVariable.availableLocation.includes('' + this.globalVariable.loggedInUser.shippingPincode))) {
       this.presentToast('Sorry we do not serve on this location yet. :(');
     } else {
       // console.log('lets order!' + JSON.stringify(this.globalVariable.myCart, null, 2)
@@ -139,9 +139,10 @@ export class CheckoutPage implements OnInit {
     this.orderService.placeOrder(this.order).subscribe(
       (res) => {
         this.cartService.clearCart();
+        console.log(res);
         // tslint:disable-next-line: no-string-literal
-        this.presentToast(res['orderMsg']);
-        this.router.navigateByUrl(`/tabs/myProfile`);
+        this.presentToast(res['message']);
+        this.router.navigate(['']);
       });
     // console.log(orderMsg);
   }

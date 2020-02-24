@@ -50,9 +50,23 @@ export const Global = {
           getTotalCartPrice: () => 0,
           getQuantity: (product: Product) => 0,
           getTotalItemCount: () => 0,
-          getTotalDiscountPrice: () => 0
+          getTotalDiscountPrice: () => 0,
+          getTotalCartPriceWithoutShippingCharge: () => 0
     }),
     cart : {},
      backendUrl: 'https://theflyingbasket.com/backend/',
-     availableLocation: [721645, 721657, 721635, 721602, 721606, 721607, 721654, 721452, 721628, 721603, 721658, 721631, 721604, 721607]
+     availableLocation: [
+         '721645',
+         '721657',
+         '721635',
+         '721602',
+         '721606',
+         '721607',
+         '721654',
+         '721452',
+         '721603',
+         '721658',
+         '721631',
+         '721604',
+         '721607']
 };
