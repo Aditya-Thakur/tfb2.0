@@ -46,7 +46,7 @@ export const Global = {
     priceVarietyAvailable: false
     }],
     myCart: new Cart({
-        myCartItems: new Array<CartItem>(),
+        myCartItems: new Set<CartItem>([]),
           getTotalCartPrice: () => 0,
           getQuantity: (product: Product) => 0,
           getTotalItemCount: () => 0,

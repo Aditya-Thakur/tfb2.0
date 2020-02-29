@@ -12,17 +12,23 @@ export class CartService {
   public data: any = [];
   globalVariable = Global;
 
-  private myCartItems: CartItem[] = [];
+  // private myCartItems: CartItem[] = [];
+  private myCartItems = new Set<CartItem>([]);
 
   constructor(private storage: StorageService) { }
 
   async addToCart(cartItem: CartItem) {
     try {
-      this.myCartItems.push(cartItem);
+      console.log('Adding ', cartItem.product.productName, cartItem.productVariety.productQuantity, cartItem.productVariety.quantityType);
+      this.myCartItems.forEach(element => {
+        console.log('%%%%%', element);
+      });
+      this.myCartItems.add(cartItem);
+      this.myCartItems.forEach(element => {
+        console.log(element);
+      });
       this.globalVariable.myCart = new Cart(this.myCartItems);
       this.storage.saveInLocal('myCart', this.globalVariable.myCart);
-      this.data['myCart'] = this.storage.getFromLocal('myCart');
-      console.log(this.data);
     } catch (e) {
       console.log(e);
     }
@@ -30,7 +36,7 @@ export class CartService {
 
   async clearCart() {
     try {
-      const myCartItems2: CartItem[] = [];
+      const myCartItems2 = new Set<CartItem>([]);
       this.myCartItems = myCartItems2;
       this.globalVariable.myCart = new Cart(this.myCartItems);
       this.storage.saveInLocal('myCart', this.globalVariable.myCart);
@@ -41,12 +47,23 @@ export class CartService {
 
   async changeQuantity(cartItemProductId: number, cartItemProductVarietyId: number, change: number) {
     try {
-      const index = this.globalVariable.myCart.myCartItems.findIndex(e =>
-        (e.product.id === cartItemProductId) && (e.productVariety.id === cartItemProductVarietyId));
-      this.globalVariable.myCart.myCartItems[index].quantity += change;
-      const quantity = this.globalVariable.myCart.myCartItems[index].quantity;
+      // const index = this.globalVariable.myCart.myCartItems.findIndex(e =>
+      //   (e.product.id === cartItemProductId) && (e.productVariety.id === cartItemProductVarietyId));
+      // this.globalVariable.myCart.myCartItems[index].quantity += change;
+      // const quantity = this.globalVariable.myCart.myCartItems[index].quantity;
+
+      let quantity = 0;
+      let itemToDel: CartItem;
+      this.myCartItems.forEach(item => {
+        if (item.product.id === cartItemProductId && item.productVariety.id === cartItemProductVarietyId) {
+          item.quantity += change ;
+          quantity = item.quantity;
+          itemToDel = item;
+        }
+      });
       if (quantity === 0) {
-        this.globalVariable.myCart.myCartItems.splice(index, 1);
+        console.log('deleting**************************', itemToDel.product.productName);
+        this.globalVariable.myCart.myCartItems.delete(itemToDel);
       }
       const myCartItems2 = this.globalVariable.myCart.myCartItems;
       this.globalVariable.myCart = new Cart(myCartItems2);
@@ -56,15 +73,15 @@ export class CartService {
     }
   }
 
-  async removeFromCart(cartItem: CartItem) {
+  // async removeFromCart(cartItem: CartItem) {
     // this.data['myCart'] = this.storage.getFromLocal('myCart');
-    const index = this.globalVariable.myCart.myCartItems.findIndex((e) => e.product.id === cartItem.product.id);
-    this.globalVariable.myCart[index].quantity -= 1;
-    const quantity = this.globalVariable.myCart[index].quantity;
-    if (quantity === 0) {
-      this.globalVariable.myCart.myCartItems.splice(index, 1);
-    }
-    this.storage.saveInLocal('myCart', this.globalVariable.myCart);
-  }
+    // const index = this.globalVariable.myCart.myCartItems.findIndex((e) => e.product.id === cartItem.product.id);
+    // this.globalVariable.myCart[index].quantity -= 1;
+    // const quantity = this.globalVariable.myCart[index].quantity;
+    // if (quantity === 0) {
+    //   this.globalVariable.myCart.myCartItems.splice(index, 1);
+    // }
+    // this.storage.saveInLocal('myCart', this.globalVariable.myCart);
+  // }
 
 }

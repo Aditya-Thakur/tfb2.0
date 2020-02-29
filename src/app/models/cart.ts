@@ -3,7 +3,8 @@ import { CartItem } from './cart-item';
 import { ProductVariety } from './product-variety';
 
 export class Cart {
-  myCartItems: CartItem[] = [];
+  // myCartItems: CartItem[] = [];
+  myCartItems = new Set<CartItem>([]);
   totalCartPrice = 0;
   totalCartPriceWithoutShippingCharge = 0;
   constructor(myCartItemList) {
@@ -12,7 +13,9 @@ export class Cart {
 
   getTotalCartPrice(): number {
     let totalPrice = 0;
-    if (this.myCartItems.length > 0) {
+    console.log('in getTotalCartPrice', this.myCartItems.size);
+    if (this.myCartItems.size > 0) {
+      console.log('with size ', this.myCartItems.size);
       this.myCartItems.forEach(element => {
         totalPrice += element.productVariety.productPrice * element.quantity;
       });
@@ -28,7 +31,7 @@ export class Cart {
   }
   getTotalCartPriceWithoutShippingCharge(): number {
     let totalPrice = 0;
-    if (this.myCartItems.length > 0) {
+    if (this.myCartItems.size > 0) {
       this.myCartItems.forEach(element => {
         totalPrice += element.productVariety.productPrice * element.quantity;
       });
@@ -39,16 +42,26 @@ export class Cart {
   }
 
   getQuantity(product: Product, productVariety: ProductVariety): number {
-    if (this.myCartItems.length > 0) {
+    if (this.myCartItems.size > 0) {
       if (productVariety === null || productVariety === undefined) {
-        return null;
-      }
-      const index = this.myCartItems.findIndex((e) => (e.product.id === product.id) && (e.productVariety.id === productVariety.id));
-      if (index === -1) {
         return 0;
-      } else {
-        return this.myCartItems[index].quantity;
       }
+      // const index = this.myCartItems.findIndex(
+      //   (e) => (e.product.id === product.id) && (e.productVariety.id === productVariety.id)
+      // );
+      // this.myCartItems.has()
+      // if (index === -1) {
+      //   return 0;
+      // } else {
+      //   return this.myCartItems[index].quantity;
+      // }
+      let quantity = 0;
+      this.myCartItems.forEach(item => {
+        if (item.product.id === product.id && item.productVariety.id === productVariety.id) {
+          quantity = item.quantity;
+        }
+      });
+      return quantity;
     } else {
       return 0;
     }
@@ -57,7 +70,7 @@ export class Cart {
 
   getTotalItemCount(): number {
     let totalCount = 0;
-    if (this.myCartItems.length > 0) {
+    if (this.myCartItems.size > 0) {
       this.myCartItems.forEach(element => {
         totalCount += element.quantity;
       });
@@ -67,7 +80,7 @@ export class Cart {
 
   getTotalDiscountPrice(): number {
     let totalDiscount = 0;
-    if (this.myCartItems.length > 0) {
+    if (this.myCartItems.size > 0) {
       this.myCartItems.forEach(element => {
         totalDiscount += (element.product.productPriceBeforeDiscount - element.product.productPrice) * element.quantity;
       });
@@ -76,3 +89,4 @@ export class Cart {
   }
 
 }
+

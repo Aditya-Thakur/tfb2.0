@@ -21,6 +21,16 @@ export class OrderService {
       }),
       catchError(this.handleError));
   }
+
+  cancelOrder(orderID: number) {
+    return this.http.post(`https://theflyingbasket.com/backend/api/cancelOrder.php`, orderID).pipe(
+      map((res) => {
+        // tslint:disable: no-string-literal
+        const response = res['orderData'];
+        return response;
+      }),
+      catchError(this.handleError));
+  }
   // Get all order for a user.
   async getOrderByUserId(userId: number) {
     try {

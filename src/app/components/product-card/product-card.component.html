@@ -18,7 +18,7 @@
             </ion-row>
             <ion-row *ngIf="productVarieties.length != 0; else priceActual">
               <form (ngSubmit)="quantityForm()">
-                <ion-select (change)="changeQuantityType(product.id)" class="custom-select" style="width:200px;" name="choosedProductVariety" [(ngModel)]="choosedProductVariety" okText="Okay" cancelText="Cancel" placeholder="change">
+                <ion-select class="custom-select" style="width:200px;" name="choosedProductVariety" [(ngModel)]="choosedProductVariety" okText="Okay" cancelText="Cancel" placeholder="change">
                   <ion-select-option *ngFor="let productVariety of productVarieties;"  value="{{productVariety.id}}" [selected]="productVariety.id == productVarieties[0].id">
                     {{productVariety.productQuantity}} {{productVariety.quantityType}} - Rs. {{productVariety.productPrice}}/-
                   </ion-select-option>

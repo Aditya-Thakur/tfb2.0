@@ -66,6 +66,7 @@ export class ProductCardComponent implements OnInit {
   async getProductVariety() {
     this.productVarieties = await this.shoppingService.getProductVarietyByProductId(this.product.id);
     this.productVarieties.forEach(element => {
+      console.log(this.product.productName, element.id + '****', element.productQuantity, element.quantityType);
       this.quantityDict.set(element.id, element);
     });
   }
@@ -82,25 +83,54 @@ export class ProductCardComponent implements OnInit {
   }
 
   addToBasket() {
+    // tslint:disable-next-line: prefer-const
+    let cartItemToAdd: CartItem = {
+      product: {
+        id: 0,
+        category: 0,
+        subCategory: 0,
+        productName: '',
+        productCompany: '',
+        productPrice: 0,
+        productPriceBeforeDiscount: 0,
+        productDescription: '',
+        productImage1: '',
+        productImage2: '',
+        productImage3: '',
+        shippingCharge: 0,
+        productAvailability: '',
+        postingDate: new Date(),
+        updationDate: new Date(),
+        priceVarietyAvailable: false
+      },
+      productVariety: {
+        id: 0,
+        productId: 0,
+        quantityType: '',
+        productQuantity: 0,
+        productPrice: 0
+      },
+      quantity: 0
+    };
     if (this.productVarieties.length !== 0 || this.choosedProductVariety === null || this.choosedProductVariety === undefined) {
       // console.log('************ showing basket details ************' + this.choosedProductVariety);
-      this.cartItem.productVariety = this.quantityDict.get(this.choosedProductVariety);
+      cartItemToAdd.productVariety = this.quantityDict.get(this.choosedProductVariety);
     } else {
-      this.cartItem.productVariety.id = 0;
-      this.cartItem.productVariety.productId = this.product.id;
-      this.cartItem.productVariety.productPrice = this.product.productPrice;
-      this.cartItem.productVariety.productQuantity = 0;
-      this.cartItem.productVariety.quantityType = 'default';
+      cartItemToAdd.productVariety.id = 0;
+      cartItemToAdd.productVariety.productId = this.product.id;
+      cartItemToAdd.productVariety.productPrice = this.product.productPrice;
+      cartItemToAdd.productVariety.productQuantity = 0;
+      cartItemToAdd.productVariety.quantityType = 'default';
       this.choosedProductVariety = 1000;
     }
-    this.cartItem.product = this.product;
-    this.cartItem.quantity = 1;
+    cartItemToAdd.product = this.product;
+    cartItemToAdd.quantity = 1;
     if (this.choosedProductVariety === 0) {
       // toast message
       this.presentToast('Please choose quantity of item');
       // console.log('Please choose quantity for the item.');
     } else {
-      this.cart.addToCart(this.cartItem);
+      this.cart.addToCart(cartItemToAdd);
     }
   }
   onQuantitySelection() {
@@ -114,20 +144,20 @@ export class ProductCardComponent implements OnInit {
     // }
     this.cart.changeQuantity(this.product.id, this.quantityDict.get(this.choosedProductVariety).id, change);
   }
-  changeQuantityType(id) {
-    const index = this.globalVariable.myCart.myCartItems.findIndex((e) => e.product.id === id);
-    this.globalVariable.myCart.myCartItems.splice(index, 1);
-  }
+  // changeQuantityType(id) {
+  //   const index = this.globalVariable.myCart.myCartItems.findIndex((e) => e.product.id === id);
+  //   this.globalVariable.myCart.myCartItems.splice(index, 1);
+  // }
 
   async showDetails(productId) {
     // console.log('************ showing details ************');
     await this.switchPage(productId);
-    this.router.navigate(['/tabs/details'], { queryParams: { thisId: productId } });
+    // this.router.navigate(['/tabs/details'], { queryParams: { thisId: productId } });
     // this.router.navigate(['/tabs/details', {item: product}]);
   }
 
   switchPage(productId) {
-    this.router.navigate(['/tabs/details'], { queryParams: { thisId: productId } });
+    // this.router.navigate(['/tabs/details'], { queryParams: { thisId: productId } });
   }
 
 }

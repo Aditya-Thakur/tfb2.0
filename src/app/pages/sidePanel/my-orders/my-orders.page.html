@@ -20,7 +20,7 @@
           {{order.shippingState}}, Landmark - {{order.landMark}}</ion-item>
         <ion-item>Contact No. - {{order.contactno}}</ion-item>
         <ion-item>Total price - Rs.{{order.totalCartPrice}}/-</ion-item>
-        <!-- <ion-item><ion-button (click)="printBill()">Print Bill</ion-button></ion-item> -->
+        <ion-item><ion-button (click)="cancelOrder(order)">Cancel Order</ion-button></ion-item>
       </ion-card>
       <ion-row>Here's the list of item: </ion-row>
       <ion-row *ngFor="let cartItem of order.cart.myCartItems">

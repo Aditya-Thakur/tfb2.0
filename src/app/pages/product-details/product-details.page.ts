@@ -120,9 +120,9 @@ export class ProductDetailsPage implements OnInit {
       await this.peopleAlsoBought();
     });
     }
-    changeQuantity(change) {
-      this.cart.changeQuantity(this.cartItem.product.id, change);
-    }
+    // changeQuantity(change) {
+    //   this.cart.changeQuantity(this.cartItem.product.id,  change);
+    // }
 
   async getProductVariety() {
     this.productVarieties = await this.shoppingService.getProductVarietyByProductId(this.pId);

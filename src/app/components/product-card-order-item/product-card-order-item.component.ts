@@ -21,7 +21,7 @@ export class ProductCardOrderItemComponent implements OnInit {
   }
 
   changeQuantity(change) {
-    this.cart.changeQuantity(this.cartItem.product.id, change);
+    this.cart.changeQuantity(this.cartItem.product.id, this.cartItem.productVariety.id, change);
   }
 
 }
