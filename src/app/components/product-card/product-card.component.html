@@ -27,16 +27,6 @@
             <ion-text>
               {{quantityDict.get(choosedProductVariety).productQuantity}} {{quantityDict.get(choosedProductVariety).quantityType}} - Rs. {{quantityDict.get(choosedProductVariety).productPrice}}/-
             </ion-text>
-            </ion-row>
-            <ng-template #priceActual>
-              <ion-row class="ion-text-center">
-                Rs. {{product.productPrice}}/-
-              </ion-row>
-            </ng-template>
-            <!-- <ion-row *ngIf="globalVariable.myCart.getQuantity(product, quantityDict.get(choosedProductVariety)) == 0; else inCart">
-              <ion-button (click)="addToBasket()">Add to basket <ion-icon name="basket"></ion-icon>
-              </ion-button>
-            </ion-row> -->
             <ion-row *ngIf="globalVariable.myCart.getQuantity(product, quantityDict.get(choosedProductVariety)) == 0; else inCart">
               <ion-button color="primary" *ngIf="product.productAvailability === 'In Stock'" (click)="addToBasket()">
                 
@@ -57,6 +47,37 @@
                 <ion-button (click)="changeQuantity(1)" color="secondary"><ion-text color="dark">+</ion-text></ion-button>
               </ion-row>
             </ng-template>
+            </ion-row>
+            <ng-template #priceActual>
+              <ion-row class="ion-text-center">
+                Rs. {{product.productPrice}}/-
+              </ion-row>
+            <!-- <ion-row *ngIf="globalVariable.myCart.getQuantity(product, quantityDict.get(choosedProductVariety)) == 0; else inCart">
+              <ion-button (click)="addToBasket()">Add to basket <ion-icon name="basket"></ion-icon>
+              </ion-button>
+            </ion-row> -->
+            <ion-row *ngIf="globalVariable.myCart.getQuantity(product, undefined) == 0; else inMyCart">
+              <ion-button color="primary" *ngIf="product.productAvailability === 'In Stock'" (click)="addToBasket()">
+                
+                  Add to basket <ion-icon name="basket"></ion-icon>
+            
+              </ion-button>
+              <ion-button color="medium" *ngIf="product.productAvailability === 'Out of Stock'" (click)="outOfStock()">
+                
+                Out of Stock
+          
+            </ion-button>
+            </ion-row>
+
+            <ng-template #inMyCart>
+              <ion-row>
+                <ion-button (click)="changeQuantity(-1)" color="warning"><ion-text color="dark">-</ion-text></ion-button>
+                <ion-text>{{globalVariable.myCart.getQuantity(product,undefined)}} in &nbsp;<ion-icon name="basket"></ion-icon></ion-text>
+                <ion-button (click)="changeQuantity(1)" color="secondary"><ion-text color="dark">+</ion-text></ion-button>
+              </ion-row>
+            </ng-template>
+
+          </ng-template>
           </ion-grid>
         </ion-col>
       </ion-row>

@@ -139,10 +139,11 @@ export class ProductCardComponent implements OnInit {
     }
   }
   changeQuantity(change) {
-    // if (this.productVarieties != null) {
-    //   this.choosedProductVariety = this.quantityForm.value.quantity;
-    // }
-    this.cart.changeQuantity(this.product.id, this.quantityDict.get(this.choosedProductVariety).id, change);
+    if (this.productVarieties == null || this.productVarieties === undefined || this.productVarieties.length === 0) {
+      this.cart.changeQuantity(this.product.id, undefined, change);
+    } else {
+      this.cart.changeQuantity(this.product.id, this.quantityDict.get(this.choosedProductVariety).id, change);
+    }
   }
   // changeQuantityType(id) {
   //   const index = this.globalVariable.myCart.myCartItems.findIndex((e) => e.product.id === id);

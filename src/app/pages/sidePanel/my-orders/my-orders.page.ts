@@ -55,12 +55,13 @@ export class MyOrdersPage implements OnInit, OnDestroy {
       this.presentToast('You can not cancel an order which is in transit.');
     } else if (order.orderStatus === 'Delivered') {
       this.presentToast('You can not cancel an order which is delivered.');
-    } else if (order.orderStatus === 'Canceled') {
+    } else if (order.orderStatus === 'canceled') {
       this.presentToast('Your order is already canceled.');
     } else {
       this.orderService.cancelOrder(order.id).subscribe(
         res => {
-          this.presentToast(res.message);
+          this.presentToast(res);
+          location.reload();
         }
       );
     }

@@ -47,20 +47,30 @@ export class CartService {
 
   async changeQuantity(cartItemProductId: number, cartItemProductVarietyId: number, change: number) {
     try {
+      let quantity = 0;
+      let itemToDel: CartItem;
       // const index = this.globalVariable.myCart.myCartItems.findIndex(e =>
       //   (e.product.id === cartItemProductId) && (e.productVariety.id === cartItemProductVarietyId));
       // this.globalVariable.myCart.myCartItems[index].quantity += change;
       // const quantity = this.globalVariable.myCart.myCartItems[index].quantity;
-
-      let quantity = 0;
-      let itemToDel: CartItem;
-      this.myCartItems.forEach(item => {
+      if (cartItemProductVarietyId === undefined) {
+        this.myCartItems.forEach(item => {
+          if (item.product.id === cartItemProductId) {
+            item.quantity += change ;
+            quantity = item.quantity;
+            itemToDel = item;
+          }
+        });
+      } else {
+        this.myCartItems.forEach(item => {
         if (item.product.id === cartItemProductId && item.productVariety.id === cartItemProductVarietyId) {
           item.quantity += change ;
           quantity = item.quantity;
           itemToDel = item;
         }
       });
+
+      }
       if (quantity === 0) {
         console.log('deleting**************************', itemToDel.product.productName);
         this.globalVariable.myCart.myCartItems.delete(itemToDel);

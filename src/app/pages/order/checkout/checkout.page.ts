@@ -90,6 +90,10 @@ export class CheckoutPage implements OnInit {
       shippingPincode: new FormControl('', [
         Validators.required,
         Validators.pattern('7216+[0-9]{2}')
+      ]),
+      contactno: new FormControl('', [
+        Validators.required,
+        Validators.pattern('[0-9]{10}')
       ])
     });
   }
@@ -136,6 +140,7 @@ export class CheckoutPage implements OnInit {
     this.order.shippingCity = this.globalVariable.loggedInUser.shippingCity;
     this.order.shippingPincode = this.globalVariable.loggedInUser.shippingPincode;
     this.order.shippingState = this.globalVariable.loggedInUser.shippingState;
+    this.order.totalCartPrice = this.globalVariable.myCart.getTotalCartPrice();
     this.orderService.placeOrder(this.order).subscribe(
       (res) => {
         this.cartService.clearCart();

@@ -42,9 +42,22 @@ export class Cart {
   }
 
   getQuantity(product: Product, productVariety: ProductVariety): number {
+    // console.log(productVariety);
+
     if (this.myCartItems.size > 0) {
+      let quantity = 0;
       if (productVariety === null || productVariety === undefined) {
-        return 0;
+        this.myCartItems.forEach(item => {
+          if (item.product.id === product.id) {
+            quantity = item.quantity;
+          }
+        });
+      } else {
+        this.myCartItems.forEach(item => {
+          if (item.product.id === product.id && item.productVariety.id === productVariety.id) {
+            quantity = item.quantity;
+          }
+        });
       }
       // const index = this.myCartItems.findIndex(
       //   (e) => (e.product.id === product.id) && (e.productVariety.id === productVariety.id)
@@ -55,12 +68,6 @@ export class Cart {
       // } else {
       //   return this.myCartItems[index].quantity;
       // }
-      let quantity = 0;
-      this.myCartItems.forEach(item => {
-        if (item.product.id === product.id && item.productVariety.id === productVariety.id) {
-          quantity = item.quantity;
-        }
-      });
       return quantity;
     } else {
       return 0;
