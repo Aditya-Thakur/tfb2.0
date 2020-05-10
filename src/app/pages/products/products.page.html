@@ -5,21 +5,21 @@
 </ion-header>
 
 <ion-content>
-    <ion-grid>
-      <ion-row>
-        <ion-img width="80" height="80"
-            src="{{imgsrc}}" alt="{{altText}}"></ion-img>
-      </ion-row>
-        <ion-row *ngFor="let product of products;let i = index">
-          <ion-item *ngIf="i !=0 && products[i].subCategory!=products[i-1].subCategory">
-            <ion-img width="80" height="80"
-            src="../assets/subpic/{{products[i].subCategory}}.png"></ion-img>
-          </ion-item>
-            <app-product-card [product]="product">
-              </app-product-card>
-        </ion-row>
-      </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-img width="80" height="80" src="{{imgsrc}}" alt=""></ion-img>
+    </ion-row>
+    <ion-row *ngFor="let product of products;let i = index">
+      <ion-item *ngIf="i !=0 && products[i].subCategory!=products[i-1].subCategory">
+        <ion-img width="80" height="80" src="../assets/subpic/{{products[i].subCategory}}.webp" alt="{{altText}}"></ion-img>
+      </ion-item>
+      <app-product-card [product]="product">
+      </app-product-card>
+    </ion-row>
+  </ion-grid>
 
-      <p class="ion-padding-start ion-padding-end"><ion-item (click)="scrollToTop()" expand="block" fill="outline">That's all for now!</ion-item></p>
+  <p class="ion-padding-start ion-padding-end">
+    <ion-item (click)="scrollToTop()" expand="block" fill="outline">That's all for now!</ion-item>
+  </p>
 
 </ion-content>

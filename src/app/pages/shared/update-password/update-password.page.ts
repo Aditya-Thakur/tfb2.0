@@ -91,5 +91,8 @@ export class UpdatePasswordPage implements OnInit {
   openRegister() {
     this.router.navigateByUrl(`/tabs/register`);
   }
+  openLogin() {
+    this.router.navigateByUrl(`/tabs/login`);
+  }
 
 }

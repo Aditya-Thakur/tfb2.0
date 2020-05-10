@@ -48,15 +48,25 @@
     </ion-grid>
   </form>
   <ion-row>
-    <div text-center>
-  If you don't have an account, please <a (click)="openRegister()" style="color: red; text-decoration: underline;">
+    <!-- <div text-center>
+  If you don't have an account, please 
+  <a (click)="openRegister()" style="color: red; text-decoration: underline;">
     register</a> first!
-    </div>
+    </div> -->
+    <div text-center>
+      If you don't have an account, please 
+      <ion-button size="small" (click)="openRegister()">Register</ion-button>
+        </div>
+    
+</ion-row>
+<ion-row style="padding-top: 10px;">
 </ion-row>
 <ion-row>
   <div text-center>
-If you forgot your password, please <a (click)="openUpdatePassword()" style="color: red; text-decoration: underline;">
-  click</a> here!
+If you forgot your password, you can update it :)
+ <!-- <a (click)="openUpdatePassword()" style="color: red; text-decoration: underline;">
+  click</a> -->
+  <ion-button size="small" (click)="openUpdatePassword()">Update Password</ion-button>
   </div>
 </ion-row>
 <!-- <ion-row>

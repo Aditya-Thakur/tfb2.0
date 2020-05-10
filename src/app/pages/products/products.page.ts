@@ -49,11 +49,11 @@ export class ProductsPage implements OnInit {
       if (this.products.length === 0) {
         this.error = true;
       }
-      this.imgsrc = '../assets/subpic/' + this.products[0].subCategory + '.png';
+      this.imgsrc = '../assets/subpic/' + this.products[0].subCategory + '.webp';
       this.altText = 'This is what we found in ' +
       (await this.shoppingService.getSubcategoryByID(this.products[0].subCategory)).subcategory;
+      loading.dismiss();
     });
-    loading.dismiss();
   }
 
 

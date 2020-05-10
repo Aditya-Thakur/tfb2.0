@@ -12,3 +12,10 @@
   .otherProduct ::-webkit-scrollbar {
     display: none;
   }
+
+.vertical-align-content {
+  display: flex !important;
+  align-items: center !important;
+  align-content: center !important;
+  align-self: center !important;
+}

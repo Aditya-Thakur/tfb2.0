@@ -50,26 +50,6 @@ export class ProductDetailsPage implements OnInit {
   };
   choosedProductVariety = 0;
   quantityDict = new Map<number, ProductVariety>();
-  items: Product[] = [
-    {
-      id: 0,
-      category: 0,
-      subCategory: 0,
-      productName: '',
-      productCompany: '',
-      productPrice: 0,
-      productPriceBeforeDiscount: 0,
-      productDescription: '',
-      productImage1: '',
-      productImage2: '',
-      productImage3: '',
-      shippingCharge: 0,
-      productAvailability: '',
-      postingDate: new Date(),
-      updationDate: new Date(),
-      priceVarietyAvailable: false
-    }
-  ];
   product: Product = {
     id: 0,
     category: 0,
@@ -94,13 +74,7 @@ export class ProductDetailsPage implements OnInit {
   constructor(private shoppingService: ShoppingService,
               public toastController: ToastController,
               private route: ActivatedRoute,
-              private cart: CartService) {
-    this.quantityForm = new FormGroup({
-      quantity: new FormControl('', [
-        Validators.required
-      ])
-    });
-  }
+              private cart: CartService) {  }
 
   async presentToast(toastMessage) {
     const toast = await this.toastController.create({
@@ -115,14 +89,12 @@ export class ProductDetailsPage implements OnInit {
       // tslint:disable: no-string-literal
       this.pId = Number(queryParams['thisId']);
       this.product = await this.shoppingService.getProductByProductId(this.pId);
-      // console.log(this.product);
       await this.getProductVariety();
-      await this.peopleAlsoBought();
+      if (this.productVarieties.length !== 0) {
+        this.choosedProductVariety = this.productVarieties[0].id;
+      }
     });
     }
-    // changeQuantity(change) {
-    //   this.cart.changeQuantity(this.cartItem.product.id,  change);
-    // }
 
   async getProductVariety() {
     this.productVarieties = await this.shoppingService.getProductVarietyByProductId(this.pId);
@@ -131,35 +103,67 @@ export class ProductDetailsPage implements OnInit {
     });
     }
 
-  async peopleAlsoBought() {
-      try {
-        this.items = await this.shoppingService.peopleAlsoBought(this.product.category);
-      } catch (e) {
-        console.log(e);
-      }
+    outOfStock() {
+      this.presentToast('This item is currently unavailable :(');
     }
+
     addToBasket() {
+      // tslint:disable-next-line: prefer-const
+      let cartItemToAdd: CartItem = {
+        product: {
+          id: 0,
+          category: 0,
+          subCategory: 0,
+          productName: '',
+          productCompany: '',
+          productPrice: 0,
+          productPriceBeforeDiscount: 0,
+          productDescription: '',
+          productImage1: '',
+          productImage2: '',
+          productImage3: '',
+          shippingCharge: 0,
+          productAvailability: '',
+          postingDate: new Date(),
+          updationDate: new Date(),
+          priceVarietyAvailable: false
+        },
+        productVariety: {
+          id: 0,
+          productId: 0,
+          quantityType: '',
+          productQuantity: 0,
+          productPrice: 0
+        },
+        quantity: 0
+      };
       if (this.productVarieties.length !== 0 || this.choosedProductVariety === null || this.choosedProductVariety === undefined) {
         // console.log('************ showing basket details ************' + this.choosedProductVariety);
-        this.cartItem.productVariety = this.quantityDict.get(this.choosedProductVariety);
+        cartItemToAdd.productVariety = this.quantityDict.get(this.choosedProductVariety);
       } else {
-        this.cartItem.productVariety.id = 0;
-        this.cartItem.productVariety.productId = this.product.id;
-        this.cartItem.productVariety.productPrice = this.product.productPrice;
-        this.cartItem.productVariety.productQuantity = 0;
-        this.cartItem.productVariety.quantityType = 'default';
+        cartItemToAdd.productVariety.id = 0;
+        cartItemToAdd.productVariety.productId = this.product.id;
+        cartItemToAdd.productVariety.productPrice = this.product.productPrice;
+        cartItemToAdd.productVariety.productQuantity = 0;
+        cartItemToAdd.productVariety.quantityType = 'default';
         this.choosedProductVariety = 1000;
       }
-      this.cartItem.product = this.product;
-      this.cartItem.quantity = 1;
+      cartItemToAdd.product = this.product;
+      cartItemToAdd.quantity = 1;
       if (this.choosedProductVariety === 0) {
         // toast message
         this.presentToast('Please choose quantity of item');
-        console.log('Please choose quantity for the item.');
+        // console.log('Please choose quantity for the item.');
       } else {
-        this.cart.addToCart(this.cartItem);
+        this.cart.addToCart(cartItemToAdd);
       }
     }
-
+    changeQuantity(change) {
+      if (this.productVarieties == null || this.productVarieties === undefined || this.productVarieties.length === 0) {
+        this.cart.changeQuantity(this.product.id, undefined, change);
+      } else {
+        this.cart.changeQuantity(this.product.id, this.quantityDict.get(this.choosedProductVariety).id, change);
+      }
+    }
 
 }

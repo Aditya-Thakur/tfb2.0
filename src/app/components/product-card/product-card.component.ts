@@ -66,7 +66,6 @@ export class ProductCardComponent implements OnInit {
   async getProductVariety() {
     this.productVarieties = await this.shoppingService.getProductVarietyByProductId(this.product.id);
     this.productVarieties.forEach(element => {
-      console.log(this.product.productName, element.id + '****', element.productQuantity, element.quantityType);
       this.quantityDict.set(element.id, element);
     });
   }
@@ -133,11 +132,7 @@ export class ProductCardComponent implements OnInit {
       this.cart.addToCart(cartItemToAdd);
     }
   }
-  onQuantitySelection() {
-    if (this.productVarieties.length !== 0) {
-      // console.log(this.choosedProductVariety);
-    }
-  }
+
   changeQuantity(change) {
     if (this.productVarieties == null || this.productVarieties === undefined || this.productVarieties.length === 0) {
       this.cart.changeQuantity(this.product.id, undefined, change);
@@ -151,14 +146,8 @@ export class ProductCardComponent implements OnInit {
   // }
 
   async showDetails(productId) {
-    // console.log('************ showing details ************');
-    await this.switchPage(productId);
-    // this.router.navigate(['/tabs/details'], { queryParams: { thisId: productId } });
-    // this.router.navigate(['/tabs/details', {item: product}]);
+    this.router.navigate(['/tabs/details'], { queryParams: { thisId: productId } });
   }
 
-  switchPage(productId) {
-    // this.router.navigate(['/tabs/details'], { queryParams: { thisId: productId } });
-  }
 
 }

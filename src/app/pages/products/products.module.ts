@@ -13,6 +13,7 @@ import { DiscountPipe } from '../../pipes/discount.pipe';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 
 import { ProductCardModule } from 'src/app/components/product-card/product-card.module';
+import { ImagePreloader } from 'src/app/pipes/img-preload';
 @NgModule({
   imports: [
     CommonModule,
@@ -22,7 +23,8 @@ import { ProductCardModule } from 'src/app/components/product-card/product-card.
     ProductsPageRoutingModule,
     ProductCardModule
   ],
-  declarations: [ProductsPage, DiscountPipe, ProductCardComponent],
+  declarations: [ProductsPage, DiscountPipe, ProductCardComponent,
+    ImagePreloader],
   exports: [
     FormsModule,
     ReactiveFormsModule,
